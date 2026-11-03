@@ -1,13 +1,20 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { site } from "@/lib/site";
 
+const subscribe = () => () => {};
+const getCurrentYear = () => new Date().getFullYear();
+const getServerYear = () => null;
+
 export function Footer() {
+  const year = useSyncExternalStore(subscribe, getCurrentYear, getServerYear);
+
   return (
-    <footer className="border-t border-white/5 px-4 py-8 sm:px-6">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+    <footer className="portfolio-footer">
+      <div className="section-wrap footer-inner">
         <p>
-          {site.name} · {new Date().getFullYear()}
+          {site.name} · {year ?? ""}
         </p>
         <p>Software Developer · Technical Trainer · Builder</p>
       </div>

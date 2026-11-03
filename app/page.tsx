@@ -1,4 +1,5 @@
 import { Achievements } from "@/components/Achievements";
+import { About } from "@/components/About";
 import { Colleges } from "@/components/Colleges";
 import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
@@ -17,6 +18,7 @@ export default function Home() {
       <Navbar />
       <main id="main">
         <Hero />
+        <About />
         <Achievements />
         <Skills />
         <Experience />

@@ -1,3 +1,4 @@
+"use client";
 
 import {
   Braces,
@@ -6,179 +7,145 @@ import {
   Layers3,
   Terminal,
   Wrench,
-  ArrowUpRight,
 } from "lucide-react";
-
+import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { site } from "@/lib/site";
 
 const skillGroups = [
   {
-    title: "Programming Languages",
-    description: "Writing clean logic and solving problems.",
+    title: "Programming",
+    description: "Core languages for logic, algorithms, and problem solving.",
     icon: Code2,
-    skills: ["Java", "C++", "Python", "JavaScript"],
-    accent: "from-cyan-400 to-blue-500",
+    skills: ["Java", "C", "C++", "Python", "JavaScript"],
   },
   {
-    title: "Web Development",
-    description: "Building responsive web experiences.",
+    title: "Web craft",
+    description: "Building responsive interfaces and full-stack applications.",
     icon: Braces,
-    skills: ["React", "JavaScript", "HTML", "CSS"],
-    accent: "from-blue-400 to-indigo-500",
+    skills: ["React.js", "Next.js", "HTML", "CSS", "Full Stack"],
   },
   {
-    title: "Databases & APIs",
-    description: "Working with data and application services.",
+    title: "Data & APIs",
+    description: "Connecting application experiences to useful data.",
     icon: Database,
-    skills: ["SQL", "REST APIs"],
-    accent: "from-violet-400 to-fuchsia-500",
+    skills: ["SQL", "REST APIs", "API Integration"],
   },
   {
-    title: "Tools & Workflow",
-    description: "Tools that support everyday development.",
+    title: "Tools",
+    description: "The everyday toolkit behind a considered workflow.",
     icon: Wrench,
     skills: ["Git", "GitHub", "VS Code", "Postman"],
-    accent: "from-emerald-400 to-cyan-500",
   },
   {
-    title: "Computer Science",
-    description: "Core concepts behind reliable software.",
+    title: "Foundations",
+    description: "The fundamentals behind reliable, maintainable software.",
     icon: Terminal,
     skills: ["DSA", "OOP", "Problem Solving"],
-    accent: "from-amber-300 to-orange-500",
   },
   {
-    title: "Development Practice",
-    description: "From planning an idea to building a solution.",
+    title: "Practice",
+    description: "From first idea through implementation and debugging.",
     icon: Layers3,
-    skills: ["Full Stack", "Debugging", "API Integration"],
-    accent: "from-pink-400 to-violet-500",
+    skills: ["Debugging"],
   },
-];
+].map((group) => ({
+  ...group,
+  skills: group.skills.filter((skill) =>
+    site.skills.some((availableSkill) => availableSkill === skill),
+  ),
+}));
 
 export function Skills() {
-  const allSkills = new Set(site.skills.map((skill) => skill.toLowerCase()));
-
-  const groups = skillGroups.map((group) => ({
-    ...group,
-    skills: group.skills.filter((skill) => allSkills.has(skill.toLowerCase())),
-  }));
-
-  const displayedSkills = new Set(
-    groups.flatMap((group) => group.skills.map((skill) => skill.toLowerCase()))
-  );
-
-  const otherSkills = site.skills.filter(
-    (skill) => !displayedSkills.has(skill.toLowerCase())
-  );
+  const [activeGroup, setActiveGroup] = useState(0);
+  const active = skillGroups[activeGroup];
+  const Icon = active.icon;
 
   return (
-    <section
-      id="skills"
-      className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-24"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-32 top-1/3 h-72 w-72 rounded-full bg-cyan-500/[0.06] blur-[100px]"
-      />
-
-      <div className="relative mx-auto max-w-6xl">
+    <section id="skills" className="skills-section">
+      <div className="section-wrap">
         <Reveal>
-          <div className="mb-11 flex flex-col gap-4 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-2xl">
+          <div className="skills-intro">
+            <div>
               <SectionHeading
-                eyebrow="Technical Expertise"
-                title="The tools behind what I build."
-                description="A practical mix of programming, web development, databases, and problem-solving skills."
+                eyebrow="Technical expertise"
+                title="A toolkit in motion."
+                description="The technologies and practices I use to build, teach, and keep learning."
               />
             </div>
-
-            <div className="flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-slate-300">
-              <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.65)]" />
-              Continuous learning
-            </div>
+            <p className="skills-side-note">
+              Not a scorecard.
+              <br />
+              A work in progress.
+            </p>
           </div>
         </Reveal>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {groups
-            .filter((group) => group.skills.length > 0)
-            .map((group, index) => {
-              const Icon = group.icon;
+        <Reveal>
+          <div className="skills-explorer">
+            <div className="skill-tabs" role="tablist" aria-label="Skill areas">
+              {skillGroups.map((group, index) => {
+                const GroupIcon = group.icon;
 
-              return (
-                <Reveal key={group.title} delay={index * 0.07}>
-                  <article className="group relative h-full overflow-hidden rounded-3xl border border-white/[0.09] bg-gradient-to-br from-[#171b35] via-[#101429] to-[#0b0e20] p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-indigo-400/40 hover:shadow-[0_20px_50px_rgba(79,70,229,0.1)] sm:p-7">
-                    <div
-                      aria-hidden="true"
-                      className={`pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-gradient-to-br ${group.accent} opacity-[0.08] blur-3xl transition-opacity duration-300 group-hover:opacity-20`}
-                    />
+                return (
+                  <button
+                    key={group.title}
+                    type="button"
+                    id={`skill-tab-${index}`}
+                    className="skill-tab"
+                    role="tab"
+                    aria-selected={activeGroup === index}
+                    aria-controls="skill-panel"
+                    tabIndex={activeGroup === index ? 0 : -1}
+                    onClick={() => setActiveGroup(index)}
+                    onKeyDown={(event) => {
+                      if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+                      event.preventDefault();
+                      const direction = event.key === "ArrowDown" ? 1 : -1;
+                      const next = (activeGroup + direction + skillGroups.length) % skillGroups.length;
+                      setActiveGroup(next);
+                      document.getElementById(`skill-tab-${next}`)?.focus();
+                    }}
+                  >
+                    <span className="skill-tab-icon">
+                      <GroupIcon size={16} aria-hidden="true" />
+                    </span>
+                    <span className="skill-tab-title">{group.title}</span>
+                    <span className="skill-tab-count">
+                      {String(group.skills.length).padStart(2, "0")}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
 
-                    <div className="relative flex items-start justify-between">
-                      <div
-                        className={`grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-gradient-to-br ${group.accent} bg-opacity-10 text-white shadow-lg`}
-                      >
-                        <Icon size={22} strokeWidth={1.8} />
-                      </div>
-
-                      <ArrowUpRight
-                        size={18}
-                        className="text-slate-600 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-cyan-300"
-                      />
-                    </div>
-
-                    <h3 className="relative mt-6 text-lg font-bold tracking-tight text-white">
-                      {group.title}
-                    </h3>
-
-                    <p className="relative mt-2 min-h-12 text-sm leading-6 text-slate-400">
-                      {group.description}
-                    </p>
-
-                    <div className="relative mt-5 flex flex-wrap gap-2">
-                      {group.skills.map((skill) => (
-                       <span
-                       key={skill}
-                       className="rounded-xl border border-violet-400/25 bg-gradient-to-br from-violet-500/20 via-indigo-500/15 to-purple-500/20 px-4 py-2.5 text-sm font-semibold tracking-wide text-violet-100 shadow-[0_0_14px_rgba(139,92,246,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-300/50 hover:from-violet-500/30 hover:via-indigo-500/25 hover:to-purple-500/30 hover:text-white hover:shadow-[0_0_20px_rgba(139,92,246,0.18)]"
-                     >
-                       {skill}
-                     </span>
-                      ))}
-                    </div>
-
-                    <div className="relative mt-6 h-px overflow-hidden bg-white/[0.07]">
-                      <div
-                        className={`h-full w-1/4 bg-gradient-to-r ${group.accent} transition-all duration-500 group-hover:w-full`}
-                      />
-                    </div>
-                  </article>
-                </Reveal>
-              );
-            })}
-        </div>
-
-        {otherSkills.length > 0 && (
-          <Reveal>
-            <div className="mt-6 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 sm:p-6">
-              <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
-                Additional Skills
-              </p>
-
-              <div className="flex flex-wrap gap-2.5">
-                {otherSkills.map((skill) => (
+            <div
+              className="skill-orbit-panel"
+              id="skill-panel"
+              role="tabpanel"
+              aria-labelledby={`skill-tab-${activeGroup}`}
+              aria-live="polite"
+            >
+              <div className="skill-orbit-lines" aria-hidden="true" />
+              <div className="skill-orbit-core">
+                <Icon size={22} strokeWidth={1.5} aria-hidden="true" />
+                <span>{active.title}</span>
+              </div>
+              <p className="skill-orbit-description">{active.description}</p>
+              <div className="skill-orbit-nodes" aria-label={`${active.title} skills`}>
+                {active.skills.map((skill, index) => (
                   <span
                     key={skill}
-                    className="rounded-full border border-indigo-300/15 bg-indigo-400/[0.06] px-3.5 py-2 text-sm font-medium text-slate-200 transition hover:border-cyan-300/40 hover:text-cyan-200"
+                    className={`skill-node skill-node-${index % 5}`}
                   >
                     {skill}
                   </span>
                 ))}
               </div>
             </div>
-          </Reveal>
-        )}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
