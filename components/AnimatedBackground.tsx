@@ -52,6 +52,7 @@ export function AnimatedBackground() {
       <div className="ambient-orb ambient-orb-three" />
 
       <div className="animated-cursor-glow" />
+      <div className="cursor-light" />
 
       <div className="animated-particles">
         {Array.from({ length: 24 }, (_, index) => (

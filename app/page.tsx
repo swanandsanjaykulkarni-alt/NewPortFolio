@@ -1,16 +1,10 @@
-import { Achievements } from "@/components/Achievements";
-import { About } from "@/components/About";
-import { Colleges } from "@/components/Colleges";
-import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
-import { Feedback } from "@/components/Feedback";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
+import { MagicDoors } from "@/components/MagicDoors";
 import { Navbar } from "@/components/Navbar";
 import { Projects } from "@/components/Projects";
 import { SiteShell } from "@/components/SiteShell";
-import { Skills } from "@/components/Skills";
-import { Training } from "@/components/Training";
 
 export default function Home() {
   return (
@@ -18,15 +12,9 @@ export default function Home() {
       <Navbar />
       <main id="main">
         <Hero />
-        <About />
-        <Achievements />
-        <Skills />
-        <Experience />
+        <MagicDoors />
         <Projects />
-        <Training />
-        <Colleges />
-        <Feedback />
-        <Contact />
+        <Experience />
       </main>
       <Footer />
     </SiteShell>

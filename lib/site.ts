@@ -2,7 +2,7 @@ export const site = {
   name: "Swanand Sanjay Kulkarni",
   shortName: "SWANAND",
   initials: "SK",
-  role: "Software Developer · Technical Trainer · Builder",
+  role: "Software Developer · Technical Trainer · Java & DSA Mentor",
   email: "swanandsanjaykulkarni@gmail.com",
   linkedin: "https://www.linkedin.com/in/swanandtrainer/",
   github: "https://github.com/swanandsanjaykulkarni-alt",
@@ -16,10 +16,10 @@ export const site = {
     "I design and ship software with the same care I bring to a classroom: clear systems, honest craft, and momentum that other people can actually use. As a Software Development Engineer and freelance technical trainer, I move between product work and teaching — building platforms, then helping students and engineers grow the skills behind them.",
   identity: [
     "Software Developer",
+    "Technical Trainer",
     "Java & DSA Mentor",
     "Full Stack Developer",
-    "Technical Educator",
-    "Creator of SwannyTech",
+    "GenAI Enthusiast",
   ],
   stats: [
     { value: "50+", label: "Workshops delivered" },
@@ -50,15 +50,38 @@ export const site = {
     "API Integration",
   ],
   nav: [
-    { href: "#about", label: "About" },
-    { href: "#achievements", label: "Impact" },
-    { href: "#skills", label: "Skills" },
-    { href: "#experience", label: "Experience" },
+    { href: "#home", label: "Home" },
+    { href: "#services", label: "Services" },
     { href: "#projects", label: "Projects" },
-    { href: "#training", label: "Training" },
-    { href: "#campuses", label: "Campuses" },
-    { href: "#feedback", label: "Feedback" },
+    { href: "#experience", label: "My Story" },
     { href: "#contact", label: "Contact" },
+  ],
+  services: [
+    {
+      title: "Web Development",
+      color: "blue",
+      details: ["JavaScript, React.js & Next.js", "HTML, CSS & REST APIs"],
+    },
+    {
+      title: "Software Development",
+      color: "charcoal",
+      details: ["Java, C, C++ & Python", "OOP, SQL & problem solving"],
+    },
+    {
+      title: "Java & DSA Training",
+      color: "green",
+      details: ["Hands-on programming and DSA practice", "Coding assignments and placement preparation"],
+    },
+    {
+      title: "Technical Training",
+      color: "amber",
+      details: ["Campus workshops and practical labs", "Programming, DSA & web fundamentals"],
+    },
+    {
+      title: "GenAI & Emerging Technologies",
+      color: "slate",
+      details: ["Generative AI tools and prompt engineering", "Practical AI productivity workflows"],
+    },
   ],
   experience: [
     {

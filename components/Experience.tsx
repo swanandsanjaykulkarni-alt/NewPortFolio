@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 
 import { Reveal } from "@/components/Reveal";
-import { SectionHeading } from "@/components/SectionHeading";
 
 const experiences = [
   {
@@ -136,52 +135,45 @@ export function Experience() {
       className="experience-section"
     >
       <div className="section-wrap">
-        <Reveal>
-          <div className="experience-heading">
-            <div>
-              <SectionHeading
-                eyebrow="Experience"
-                title="Learning, teaching & building."
-                description="A journey across technical training, placement preparation, and freelance software development."
-              />
-            </div>
-            <div className="experience-count">
-              <strong>{String(experiences.length).padStart(2, "0")}</strong>
-              chapters
-            </div>
+        <div className="experience-layout">
+          <div className="experience-sticky">
+            <span className="section-kicker">Experience</span>
+            <h2>Let&apos;s go back in time.</h2>
+            <span className="experience-year" aria-label="2026">2026</span>
+            <p>Learning, teaching &amp; building.</p>
           </div>
-        </Reveal>
 
-        <div className="experience-list">
-          {experiences.map((item, index) => {
-            const Icon = item.icon;
+          <div className="experience-list">
+            {experiences.map((item, index) => {
+              const Icon = item.icon;
 
-            return (
-              <Reveal key={`${item.organization}-${item.role}`} delay={index * 0.035}>
-                <article className="experience-entry">
-                  <span className="experience-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <div className="experience-topline">
-                      <h3 className="experience-org">{item.organization}</h3>
-                      <span className="experience-type">
-                        <Icon aria-hidden="true" size={13} /> {item.type}
-                      </span>
+              return (
+                <Reveal key={`${item.organization}-${item.role}`} delay={index * 0.035}>
+                  <article className="experience-entry">
+                    <span className="experience-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <div className="experience-topline">
+                        <h3 className="experience-org">{item.organization}</h3>
+                        <span className="experience-type">
+                          <Icon aria-hidden="true" size={13} /> {item.type}
+                        </span>
+                      </div>
+                      <p className="experience-role">{item.role}</p>
+                      <p className="experience-location">{item.location}</p>
+                      <p className="experience-description">{item.description}</p>
+                      <ul className="experience-highlights">
+                        {item.highlights.map((highlight) => (
+                          <li key={highlight}>{highlight}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="experience-role">{item.role}</p>
-                    <p className="experience-location">{item.location}</p>
-                    <p className="experience-description">{item.description}</p>
-                    <ul className="experience-highlights">
-                      {item.highlights.map((highlight) => (
-                        <li key={highlight}>{highlight}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              </Reveal>
-            );
-          })}
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
