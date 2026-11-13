@@ -4942,448 +4942,789 @@ p {
 /* cinematic */
 
 
-/* ==========================================
-   SWANNYTECH — MOVIE OPENING INTRO
-========================================== */
+/*
+/* =========================================
+   SWANAND — CINEMATIC UNIVERSE EXPERIENCE
+========================================= */
 
-.cinematic-intro {
+.movie-intro {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  z-index: 999999;
+  overflow: hidden;
+  background: #02030b;
+  color: #fff;
+  isolation: isolate;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+}
+
+.movie-scene {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #02040b;
-  color: white;
-  isolation: isolate;
+  perspective: 1200px;
 }
 
-/* Background portrait reveal */
+/* =========================================
+   SPACE PARTICLES
+========================================= */
 
-.intro-portrait {
+.space-particles {
   position: absolute;
   inset: 0;
-  z-index: -5;
-  overflow: hidden;
+  z-index: 20;
+  pointer-events: none;
+  perspective: 500px;
 }
 
-.intro-portrait-image {
+.space-particles span {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #bdeaff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: starFloat 3s linear infinite;
+}
+
+@keyframes starFloat {
+  0% {
+    transform: translate3d(0, 0, -100px) scale(.2);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 0, 500px) scale(4);
+    opacity: 0;
+  }
+}
+
+.movie-noise {
+  position: absolute;
+  inset: -50%;
+  z-index: 30;
+  pointer-events: none;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  /* animation: noiseMove .2s steps(2) infinite; */
+  animation: none;
+}
+
+@keyframes noiseMove {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(2%, -2%); }
+  50% { transform: translate(-2%, 2%); }
+  75% { transform: translate(1%, 2%); }
+  100% { transform: translate(-1%, -1%); }
+}
+
+/* =========================================
+   SCENE 1 — THE UNIVERSE
+========================================= */
+
+.universe-scene {
+  background:
+    radial-gradient(ellipse at center, #102b63 0%, #060b27 38%, #01020a 85%);
+}
+
+.universe-glow {
+  position: absolute;
+  width: 65vw;
+  height: 65vw;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0,149,255,.35),
+    rgba(100,50,255,.13) 35%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  animation: universePulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes universePulse {
+  from {
+    transform: scale(.65);
+    opacity: .4;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+
+.wormhole {
+  position: absolute;
+  width: 30vw;
+  height: 30vw;
+  min-width: 260px;
+  min-height: 260px;
+  border: 2px solid rgba(125,211,252,.8);
+  border-radius: 50%;
+  box-shadow:
+    0 0 20px #38bdf8,
+    0 0 70px #2563eb,
+    0 0 150px rgba(124,58,237,.8),
+    inset 0 0 70px #2563eb;
+  animation: wormholeSpin 5s linear infinite, wormholeGrow 3.5s ease-in forwards;
+}
+
+.wormhole::before,
+.wormhole::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 2px solid #a5f3fc;
+  border-radius: 50%;
+  box-shadow: 0 0 35px #38bdf8;
+}
+
+.wormhole::after {
+  inset: 25%;
+  border-color: #c4b5fd;
+  box-shadow: 0 0 40px #8b5cf6;
+  animation: wormholeSpin 2s linear infinite reverse;
+}
+
+@keyframes wormholeSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes wormholeGrow {
+  0% { scale: .4; }
+  100% { scale: 2.7; opacity: 0; }
+}
+
+.warp-tunnel {
+  position: absolute;
+  inset: -50%;
+  background: repeating-radial-gradient(
+    circle at center,
+    transparent 0px,
+    transparent 50px,
+    rgba(56,189,248,.17) 52px,
+    transparent 54px
+  );
+  animation: warpZoom 3.5s ease-in forwards;
+}
+
+@keyframes warpZoom {
+  from {
+    transform: scale(.15);
+    opacity: 0;
+  }
+  40% { opacity: 1; }
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.universe-caption {
+  position: absolute;
+  bottom: 15%;
+  color: #bae6fd;
+  font-size: 10px;
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 0 0 20px #38bdf8;
+}
+
+/* =========================================
+   PORTALS — DEVELOPER AND TRAINER
+========================================= */
+
+.developer-scene {
+  background:
+    radial-gradient(ellipse at center, #092f61 0%, #03091d 60%, #01020a 100%);
+}
+
+.trainer-scene {
+  background:
+    radial-gradient(ellipse at center, #40106c 0%, #16052d 55%, #03020b 100%);
+}
+
+.portal {
+  position: absolute;
+  width: 35vw;
+  height: 35vw;
+  min-width: 270px;
+  min-height: 270px;
+  border-radius: 50%;
+  animation: portalPulse 2s ease-in-out infinite alternate;
+}
+
+.portal-blue {
+  border: 3px solid #7dd3fc;
+  box-shadow:
+    0 0 30px #38bdf8,
+    0 0 90px #2563eb,
+    inset 0 0 70px #0ea5e9;
+  background: radial-gradient(circle, rgba(14,165,233,.3), transparent 65%);
+}
+
+.portal-purple {
+  border: 3px solid #e9d5ff;
+  box-shadow:
+    0 0 30px #c084fc,
+    0 0 90px #9333ea,
+    inset 0 0 70px #7e22ce;
+  background: radial-gradient(circle, rgba(168,85,247,.3), transparent 65%);
+}
+
+@keyframes portalPulse {
+  from { transform: scale(.8) rotate(0deg); }
+  to { transform: scale(1.25) rotate(45deg); }
+}
+
+.portal::before,
+.portal::after {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: #7dd3fc;
+  opacity: .6;
+  animation: portalSpin 5s linear infinite;
+}
+
+.portal-purple::before,
+.portal-purple::after {
+  color: #d8b4fe;
+}
+
+.portal::after {
+  inset: -45px;
+  animation-direction: reverse;
+  animation-duration: 8s;
+}
+
+@keyframes portalSpin {
+  to { transform: rotate(360deg); }
+}
+
+.scene-lightning {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  z-index: 3;
+  filter: blur(2px);
+  animation: lightningFlash 1.4s ease-in-out infinite;
+}
+
+.blue-lightning {
+  background: #7dd3fc;
+  box-shadow: 0 0 20px #38bdf8, 0 0 60px #2563eb;
+}
+
+.purple-lightning {
+  background: #e9d5ff;
+  box-shadow: 0 0 20px #c084fc, 0 0 60px #9333ea;
+}
+
+@keyframes lightningFlash {
+  0%, 100% { opacity: 0; transform: scaleX(.1); }
+  40% { opacity: 1; transform: scaleX(1); }
+  50% { opacity: .2; }
+}
+
+.portal-flash {
+  position: absolute;
+  width: 100vw;
+  height: 100vw;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 8;
+}
+
+.blue-flash {
+  background: radial-gradient(circle, #fff, #38bdf8 10%, transparent 65%);
+}
+
+.purple-flash {
+  background: radial-gradient(circle, #fff, #c084fc 10%, transparent 65%);
+}
+
+/* =========================================
+   PIXEL CHARACTERS
+========================================= */
+
+.pixel-arrival {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.pixel-person {
+  position: absolute;
+  top: 50%;
+  margin-top: -65px;
+  filter: drop-shadow(0 0 20px #38bdf8);
+}
+
+.pixel-person-right {
+  right: 10%;
+  filter: drop-shadow(0 0 25px #c084fc);
+}
+
+.pixel-person-left {
+  left: 10%;
+}
+
+.movie-pixel {
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.energy-explosion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 170px;
+  height: 170px;
+  margin: -85px;
+  border: 3px solid #7dd3fc;
+  border-radius: 50%;
+  box-shadow:
+    0 0 35px #38bdf8,
+    inset 0 0 30px #38bdf8;
+}
+
+.energy-explosion.trainer {
+  border-color: #d8b4fe;
+  box-shadow: 0 0 35px #a855f7, inset 0 0 30px #a855f7;
+}
+
+/* =========================================
+   DEVELOPER / TRAINER TITLES
+========================================= */
+
+.role-title {
+  position: relative;
+  z-index: 15;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  transform-style: preserve-3d;
+}
+
+.role-small {
+  display: block;
+  color: #e0f2fe;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 7px;
+  margin-bottom: 20px;
+}
+
+.trainer-scene .role-small {
+  color: #f3e8ff;
+}
+
+.role-title h2 {
+  font-size: clamp(48px, 11vw, 130px);
+  line-height: 1;
+  font-weight: 1000;
+  letter-spacing: 5px;
+  margin: 0;
+  color: #fff;
+  background: linear-gradient(
+    180deg,
+    #fff 0%,
+    #bae6fd 35%,
+    #38bdf8 70%,
+    #075985 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 45px rgba(56,189,248,.4);
+  filter: drop-shadow(0 10px 25px rgba(0,0,0,.7));
+}
+
+.trainer-scene .role-title h2 {
+  background: linear-gradient(
+    180deg,
+    #fff 0%,
+    #f5d0fe 35%,
+    #c084fc 70%,
+    #6b21a8 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(192,132,252,.6));
+}
+
+.role-underline {
+  width: min(65vw, 450px);
+  height: 2px;
+  margin: 30px auto 0;
+}
+
+.blue-line {
+  background: linear-gradient(90deg, transparent, #7dd3fc, white, #38bdf8, transparent);
+  box-shadow: 0 0 25px #38bdf8;
+}
+
+.purple-line {
+  background: linear-gradient(90deg, transparent, #c084fc, white, #e879f9, transparent);
+  box-shadow: 0 0 25px #c084fc;
+}
+
+/* =========================================
+   SCENE 4 — SWANAND TITLE
+========================================= */
+
+.name-scene {
+  background:
+    radial-gradient(ellipse at center, #142a50 0%, #060b1a 48%, #010207 100%);
+}
+
+.name-energy {
+  position: absolute;
+  width: 65vw;
+  height: 65vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56,189,248,.3), transparent 68%);
+  animation: nameEnergy 3s ease-in-out infinite alternate;
+}
+
+@keyframes nameEnergy {
+  from { transform: scale(.7); opacity: .4; }
+  to { transform: scale(1.5); opacity: 1; }
+}
+
+.name-impact {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 50px #38bdf8, inset 0 0 50px #38bdf8;
+}
+
+.swanand-title {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  font-size: clamp(55px, 13vw, 155px);
+  line-height: 1;
+  font-weight: 1000;
+  color: #fff;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e2e8f0 25%,
+    #94a3b8 55%,
+    #ffffff 70%,
+    #64748b 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 35px rgba(56,189,248,.6));
+  white-space: nowrap;
+  text-shadow: none;
+}
+
+.name-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255,255,255,.9) 50%,
+    transparent 70%
+  );
+  transform: translateX(-150%);
+  animation: nameShine 2.2s ease-in-out 1.2s forwards;
+  pointer-events: none;
+}
+
+@keyframes nameShine {
+  to { transform: translateX(150%); }
+}
+
+.name-subline {
+  position: absolute;
+  top: calc(50% + 90px);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #38bdf8, white, #a78bfa, transparent);
+  box-shadow: 0 0 20px #38bdf8;
+}
+
+/* =========================================
+   SCENE 5 — FINAL PORTRAIT
+========================================= */
+
+.final-scene {
+  background: #02040a;
+}
+
+.final-photo {
+  position: absolute;
+  inset: 0;
+  opacity: .65;
+}
+
+.final-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
-  filter: saturate(.8) contrast(1.15);
+  filter: saturate(.8) contrast(1.1);
+  animation: photoZoom 15s ease-out forwards;
 }
 
-.intro-dark-overlay {
+@keyframes photoZoom {
+  from { transform: scale(1.2); }
+  to { transform: scale(1); }
+}
+
+.final-overlay {
   position: absolute;
   inset: 0;
-  z-index: -4;
   background:
-    linear-gradient(
-      90deg,
-      rgba(2,4,11,.9),
-      rgba(2,4,11,.5),
-      rgba(2,4,11,.9)
-    ),
-    linear-gradient(
-      0deg,
-      rgba(2,4,11,.98),
-      rgba(2,4,11,.12),
-      rgba(2,4,11,.85)
-    );
+    linear-gradient(90deg, rgba(2,4,12,.85), rgba(2,4,12,.25), rgba(2,4,12,.85)),
+    linear-gradient(0deg, rgba(2,4,12,.9), transparent 60%, rgba(2,4,12,.55)),
+    radial-gradient(ellipse at center, transparent, rgba(0,0,0,.65));
 }
 
-.intro-grid {
-  position: absolute;
-  inset: 0;
-  z-index: -3;
-  opacity: .15;
-  background-image:
-    linear-gradient(rgba(56,189,248,.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56,189,248,.2) 1px, transparent 1px);
-  background-size: 50px 50px;
-  mask-image: radial-gradient(ellipse at center, black, transparent 80%);
-}
-
-.intro-vignette {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 15%,
-    rgba(0,0,0,.45) 65%,
-    #000 100%
-  );
-  pointer-events: none;
-}
-
-/* Light beam */
-
-.intro-light-beam {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: -50%;
-  width: 30%;
-  height: 100%;
-  transform: skewX(-20deg);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(56,189,248,.16),
-    rgba(255,255,255,.4),
-    rgba(124,58,237,.15),
-    transparent
-  );
-  filter: blur(25px);
-  pointer-events: none;
-}
-
-/* ==========================================
-   PIXEL CHARACTERS
-========================================== */
-
-.intro-character-stage {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
-}
-
-.intro-character {
-  position: absolute;
-  top: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  filter: drop-shadow(0 0 25px rgba(56,189,248,.65));
-}
-
-.intro-character-left {
-  left: 10%;
-  margin-top: -64px;
-}
-
-.intro-character-right {
-  right: 10%;
-  margin-top: -64px;
-  filter: drop-shadow(0 0 25px rgba(167,139,250,.65));
-}
-
-.pixel-character-svg {
-  image-rendering: pixelated;
-  width: 120px;
-  height: 160px;
-}
-
-.pixel-character-name {
-  color: #bae6fd;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 4px;
-  text-shadow: 0 0 15px #38bdf8;
-}
-
-/* Digital explosion */
-
-.intro-particle-burst {
-  position: absolute;
-  z-index: 6;
-  left: 50%;
-  top: 50%;
-  width: 300px;
-  height: 300px;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.intro-particle {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  background: #7dd3fc;
-  box-shadow: 0 0 15px #38bdf8;
-}
-
-/* ==========================================
-   MOVIE TITLE
-========================================== */
-
-.intro-title-stage {
-  position: absolute;
-  inset: 0;
+.final-frame {
+  position: relative;
   z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 25px;
-  pointer-events: none;
-}
-
-.intro-title-content {
-  text-align: center;
-  width: min(100%, 1000px);
-  transform-origin: center center;
-}
-
-.intro-title-overline {
-  font-size: 10px;
-  color: #93c5fd;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin-bottom: 30px;
-}
-
-.intro-main-title {
+  width: min(850px, 88vw);
+  min-height: 380px;
+  padding: 60px 25px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  font-weight: 950;
-  line-height: .95;
-  font-family: "Space Grotesk", "Inter", sans-serif;
-  text-shadow:
-    0 4px 0 rgba(15,23,42,.9),
-    0 0 35px rgba(56,189,248,.25);
-}
-
-.intro-title-first {
-  display: block;
-  font-size: clamp(55px, 10vw, 120px);
-  color: #f8fafc;
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #dbeafe 45%,
-    #60a5fa 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.intro-title-last {
-  display: block;
-  margin-top: 12px;
-  font-size: clamp(35px, 7vw, 85px);
-  color: #a5b4fc;
-  background: linear-gradient(
-    100deg,
-    #60a5fa,
-    #c4b5fd,
-    #67e8f9
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.intro-title-dot {
-  color: #38bdf8;
-  -webkit-text-fill-color: #38bdf8;
-}
-
-.intro-title-line {
-  height: 2px;
-  max-width: 650px;
-  margin: 30px auto 20px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #38bdf8,
-    #a78bfa,
-    transparent
-  );
-  box-shadow: 0 0 20px #38bdf8;
-}
-
-.intro-title-subtitle {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  color: #cbd5e1;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  font-weight: 800;
-}
-
-.intro-title-subtitle i,
-.cinematic-intro-credit i {
-  width: 5px;
-  height: 5px;
-  background: #38bdf8;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #38bdf8;
-}
-
-/* ==========================================
-   FINAL HERO REVEAL
-========================================== */
-
-.intro-final-content {
-  position: absolute;
-  z-index: 15;
-  bottom: 12%;
-  left: 0;
-  width: 100%;
+  align-items: center;
   text-align: center;
-  pointer-events: auto;
+  border: 1px solid rgba(125,211,252,.25);
+  background: rgba(3,10,25,.2);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 100px rgba(37,99,235,.1);
 }
 
-.intro-final-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+.frame-corner {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-color: #7dd3fc;
+  border-style: solid;
+  filter: drop-shadow(0 0 8px #38bdf8);
+}
+
+.top-left {
+  top: -2px;
+  left: -2px;
+  border-width: 2px 0 0 2px;
+}
+
+.top-right {
+  top: -2px;
+  right: -2px;
+  border-width: 2px 2px 0 0;
+}
+
+.bottom-left {
+  bottom: -2px;
+  left: -2px;
+  border-width: 0 0 2px 2px;
+}
+
+.bottom-right {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 2px 2px 0;
+}
+
+.final-overline {
   color: #7dd3fc;
   font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 4px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  margin-bottom: 25px;
 }
 
-.intro-final-content > p {
-  margin-top: 20px;
-  color: #e2e8f0;
-  font-size: clamp(17px, 2vw, 24px);
-  font-weight: 600;
-  line-height: 1.6;
-  text-shadow: 0 2px 20px #000;
+.final-name {
+  font-size: clamp(55px, 11vw, 110px);
+  line-height: 1;
+  font-weight: 1000;
+  letter-spacing: 5px;
+  background: linear-gradient(180deg, white, #cbd5e1 55%, #64748b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 25px rgba(56,189,248,.5));
 }
 
-/* Enter button */
-
-.cinematic-intro-enter {
-  margin-top: 28px;
-  min-width: 210px;
-  min-height: 54px;
-  padding: 0 24px;
-  border: 1px solid rgba(125,211,252,.65);
-  border-radius: 8px;
-  display: inline-flex;
+.final-profession {
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  background: linear-gradient(
-    100deg,
-    rgba(37,99,235,.85),
-    rgba(109,40,217,.85)
-  );
-  color: white;
-  font-size: 11px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  color: #e2e8f0;
+  font-size: 9px;
   font-weight: 900;
   letter-spacing: 2px;
+}
+
+.final-profession i,
+.movie-credit i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 12px #38bdf8;
+}
+
+.final-enter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 38px;
+  padding: 17px 30px;
+  min-width: 230px;
+  border: 1px solid #7dd3fc;
+  border-radius: 3px;
+  background: linear-gradient(100deg, #075985, #4c1d95);
+  color: white;
+  font-size: 11px;
+  font-weight: 1000;
+  letter-spacing: 3px;
   cursor: pointer;
-  box-shadow:
-    0 0 25px rgba(59,130,246,.25),
-    inset 0 0 15px rgba(255,255,255,.08);
-  transition: box-shadow .3s, border-color .3s;
+  box-shadow: 0 0 25px rgba(56,189,248,.25);
 }
 
-.cinematic-intro-enter:hover {
-  border-color: #fff;
-  box-shadow: 0 0 40px rgba(56,189,248,.5);
-}
+/* =========================================
+   FOOTER / PROGRESS
+========================================= */
 
-/* Progress */
-
-.cinematic-intro-progress {
+.movie-progress {
   position: absolute;
+  z-index: 100;
   bottom: 0;
   left: 0;
-  height: 3px;
   width: 100%;
+  height: 3px;
   background: rgba(255,255,255,.1);
-  z-index: 30;
 }
 
-.cinematic-intro-progress span {
+.movie-progress span {
   display: block;
-  height: 100%;
   width: 100%;
+  height: 100%;
   transform-origin: left;
-  background: linear-gradient(90deg, #2563eb, #a78bfa, #67e8f9);
+  background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #e0f2fe);
   box-shadow: 0 0 15px #38bdf8;
 }
 
-.cinematic-intro-credit {
+.movie-credit {
   position: absolute;
-  bottom: 25px;
-  right: 35px;
+  z-index: 100;
+  bottom: 22px;
+  right: 28px;
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #64748b;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #94a3b8;
 }
 
-/* Mobile */
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 650px) {
-  .intro-character-left {
-    left: 2%;
+  .wormhole {
+    width: 65vw;
+    height: 65vw;
   }
 
-  .intro-character-right {
-    right: 2%;
+  .portal {
+    width: 70vw;
+    height: 70vw;
   }
 
-  .pixel-character-svg {
-    width: 75px;
-    height: 100px;
-  }
-
-  .pixel-character-name {
-    font-size: 7px;
+  .role-title h2 {
+    font-size: 13vw;
     letter-spacing: 2px;
   }
 
-  .intro-title-first {
+  .role-small {
+    font-size: 8px;
+    letter-spacing: 3px;
+  }
+
+  .pixel-person-left {
+    left: -3%;
+  }
+
+  .pixel-person-right {
+    right: -3%;
+  }
+
+  .movie-pixel {
+    width: 65px;
+    height: 90px;
+  }
+
+  .swanand-title {
     font-size: 13vw;
+    letter-spacing: 4px !important;
   }
 
-  .intro-title-last {
-    font-size: 9vw;
-    letter-spacing: 2px !important;
+  .name-subline {
+    top: calc(50% + 60px);
   }
 
-  .intro-title-overline {
-    font-size: 8px;
+  .final-frame {
+    width: 90vw;
+    min-height: 330px;
+    padding: 45px 15px;
   }
 
-  .intro-title-subtitle {
-    font-size: 8px;
+  .final-name {
+    font-size: 13vw;
+    letter-spacing: 2px;
+  }
+
+  .final-profession {
     gap: 8px;
+    font-size: 7px;
     letter-spacing: 1px;
   }
 
-  .intro-final-content {
-    bottom: 12%;
-    padding: 0 15px;
-  }
-
-  .intro-final-content > p {
-    font-size: 17px;
-  }
-
-  .cinematic-intro-credit {
+  .movie-credit {
     right: auto;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 13px;
     white-space: nowrap;
+    bottom: 12px;
     font-size: 7px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .intro-grid {
-    display: none;
+  .space-particles,
+  .movie-noise,
+  .warp-tunnel,
+  .wormhole {
+    animation: none !important;
   }
 }

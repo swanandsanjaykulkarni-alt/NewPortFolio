@@ -1,392 +1,434 @@
-
 "use client";
 
-import { ArrowRight, Sparkles } from "lucide-react";
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  // useScroll,
-} from "motion/react";
+import { ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { site } from "@/lib/site";
 
-const introStorageKey = "swannytech-intro-seen";
+const STORAGE_KEY = "swannytech-intro-seen";
 
-const subscribe = (callback: () => void) => {
+const subscribeToIntro = (callback: () => void) => {
   window.addEventListener("storage", callback);
   return () => window.removeEventListener("storage", callback);
 };
 
-const getSnapshot = () =>
-  sessionStorage.getItem(introStorageKey) === "true";
+const getIntroSeen = () => sessionStorage.getItem(STORAGE_KEY) === "true";
+const getServerIntroSeen = () => false;
 
-const getServerSnapshot = () => false;
-
-/* Pixel-art character */
-function PixelCharacter({ variant }: { variant: "blue" | "violet" }) {
-  const colors =
-    variant === "blue"
-      ? {
-          main: "#38bdf8",
-          dark: "#075985",
-          light: "#bae6fd",
-          skin: "#f5c49a",
-          shadow: "#082f49",
-        }
-      : {
-          main: "#a78bfa",
-          dark: "#6d28d9",
-          light: "#ddd6fe",
-          skin: "#f5c49a",
-          shadow: "#2e1065",
-        };
+function PixelCharacter({ purple = false }: { purple?: boolean }) {
+  const main = purple ? "#c084fc" : "#38bdf8";
+  const dark = purple ? "#581c87" : "#075985";
+  const glow = purple ? "#e9d5ff" : "#bae6fd";
 
   return (
     <svg
-      viewBox="0 0 96 128"
-      width="96"
-      height="128"
+      viewBox="0 0 64 80"
+      width="100"
+      height="125"
       shapeRendering="crispEdges"
-      className="pixel-character-svg"
+      className="movie-pixel"
       aria-hidden="true"
     >
-      {/* Hair */}
-      <rect x="30" y="8" width="36" height="8" fill={colors.shadow} />
-      <rect x="22" y="16" width="52" height="20" fill={colors.shadow} />
-      <rect x="26" y="32" width="8" height="8" fill={colors.shadow} />
-      <rect x="66" y="32" width="8" height="8" fill={colors.shadow} />
-
-      {/* Face */}
-      <rect x="30" y="24" width="36" height="32" fill={colors.skin} />
-      <rect x="38" y="40" width="5" height="5" fill="#172554" />
-      <rect x="55" y="40" width="5" height="5" fill="#172554" />
-      <rect x="43" y="50" width="13" height="3" fill="#b45353" />
-
-      {/* Neck */}
-      <rect x="42" y="56" width="14" height="10" fill={colors.skin} />
-
-      {/* Body */}
-      <rect x="22" y="66" width="52" height="36" fill={colors.main} />
-      <rect x="30" y="66" width="36" height="8" fill={colors.light} />
-      <rect x="39" y="78" width="18" height="19" fill={colors.dark} />
-
-      {/* Arms */}
-      <rect x="10" y="69" width="12" height="28" fill={colors.dark} />
-      <rect x="74" y="69" width="12" height="28" fill={colors.dark} />
-      <rect x="10" y="91" width="12" height="8" fill={colors.skin} />
-      <rect x="74" y="91" width="12" height="8" fill={colors.skin} />
-
-      {/* Legs */}
-      <rect x="28" y="102" width="15" height="18" fill={colors.shadow} />
-      <rect x="53" y="102" width="15" height="18" fill={colors.shadow} />
-      <rect x="23" y="118" width="22" height="7" fill={colors.main} />
-      <rect x="52" y="118" width="22" height="7" fill={colors.main} />
-
-      {/* Digital highlights */}
-      <rect x="30" y="74" width="5" height="5" fill={colors.light} />
-      <rect x="62" y="83" width="5" height="5" fill={colors.light} />
+      <rect x="20" y="3" width="24" height="7" fill="#111827" />
+      <rect x="13" y="10" width="38" height="13" fill="#111827" />
+      <rect x="17" y="20" width="30" height="20" fill="#eab994" />
+      <rect x="22" y="27" width="5" height="5" fill="#111827" />
+      <rect x="37" y="27" width="5" height="5" fill="#111827" />
+      <rect x="27" y="36" width="12" height="3" fill="#9f1239" />
+      <rect x="26" y="40" width="12" height="7" fill="#eab994" />
+      <rect x="12" y="47" width="40" height="23" fill={main} />
+      <rect x="20" y="47" width="24" height="5" fill={glow} />
+      <rect x="5" y="49" width="7" height="19" fill={dark} />
+      <rect x="52" y="49" width="7" height="19" fill={dark} />
+      <rect x="19" y="70" width="10" height="8" fill={dark} />
+      <rect x="36" y="70" width="10" height="8" fill={dark} />
     </svg>
   );
 }
 
-export function CinematicIntro() {
-  const [dismissed, setDismissed] = useState(false);
-  const reduceMotion = useReducedMotion();
-
-  const hasSeenIntro = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot
+function SpaceParticles() {
+  return (
+    <div className="space-particles" aria-hidden="true">
+      {Array.from({ length: 65 }, (_, i) => (
+        <span
+          key={i}
+          style={{
+            left: `${(i * 37.71) % 100}%`,
+            top: `${(i * 61.13) % 100}%`,
+            animationDelay: `${(i % 9) * -0.4}s`,
+            animationDuration: `${2 + (i % 5)}s`,
+          }}
+        />
+      ))}
+    </div>
   );
+}
 
-  const visible = !dismissed && !hasSeenIntro && !reduceMotion;
+function PixelArrival({ variant }: { variant: "developer" | "trainer" }) {
+  return (
+    <div className="pixel-arrival">
+      <motion.div
+        className="pixel-person pixel-person-left"
+        initial={{ x: -250, opacity: 0, rotate: -25 }}
+        animate={{
+          x: [-250, 0, 0, 120],
+          opacity: [0, 1, 1, 0],
+          rotate: [-25, 0, 0, 25],
+          y: [0, -15, 0, -70],
+        }}
+        transition={{ duration: 2.8, ease: "easeInOut" }}
+      >
+        <PixelCharacter />
+      </motion.div>
 
-  const firstName = site.name.split(" ")[0];
-  const lastName = site.name.split(" ").slice(1).join(" ");
+      <motion.div
+        className="pixel-person pixel-person-right"
+        initial={{ x: 250, opacity: 0, rotate: 25 }}
+        animate={{
+          x: [250, 0, 0, -120],
+          opacity: [0, 1, 1, 0],
+          rotate: [25, 0, 0, -25],
+          y: [0, -15, 0, -70],
+        }}
+        transition={{ duration: 2.8, ease: "easeInOut" }}
+      >
+        <PixelCharacter purple />
+      </motion.div>
 
+      <motion.div
+        className={`energy-explosion ${variant}`}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{
+          scale: [0, 1.5, 2.7],
+          opacity: [0, 1, 0],
+          rotate: [0, 90, 180],
+        }}
+        transition={{ duration: 2, delay: 0.6 }}
+      />
+    </div>
+  );
+}
+
+function MovieScene({
+  phase,
+  onEnter,
+}: {
+  phase: number;
+  onEnter: () => void;
+}) {
+  return (
+    <AnimatePresence mode="wait">
+      {phase === 0 && (
+        <motion.div
+          key="universe"
+          className="movie-scene universe-scene"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 2.5, filter: "blur(12px)" }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="universe-glow" />
+          <div className="wormhole" />
+          <div className="warp-tunnel" />
+          <motion.div
+            className="universe-caption"
+            initial={{ opacity: 0, letterSpacing: "2px" }}
+            animate={{ opacity: [0, 1, 1, 0], letterSpacing: "10px" }}
+            transition={{ duration: 3.2 }}
+          >
+            A NEW JOURNEY BEGINS
+          </motion.div>
+        </motion.div>
+      )}
+
+      {phase === 1 && (
+        <motion.div
+          key="developer"
+          className="movie-scene developer-scene"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 2.3, filter: "blur(15px)" }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="portal portal-blue" />
+          <div className="scene-lightning blue-lightning" />
+          <PixelArrival variant="developer" />
+
+          <motion.div
+            className="role-title"
+            initial={{ opacity: 0, scale: 0.1, z: -800, filter: "blur(25px)" }}
+            animate={{
+              opacity: [0, 1, 1],
+              scale: [0.1, 1.2, 1],
+              z: [-800, 100, 0],
+              filter: ["blur(25px)", "blur(0px)", "blur(0px)"],
+            }}
+            transition={{ duration: 2.1, delay: 0.45, ease: "easeOut" }}
+          >
+            <span className="role-small">THE ART OF BUILDING</span>
+            <h2>DEVELOPER</h2>
+            <div className="role-underline blue-line" />
+          </motion.div>
+
+          <motion.div
+            className="portal-flash blue-flash"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: [0, 0.9, 0], scale: [0, 2, 5] }}
+            transition={{ duration: 1.3, delay: 2.2 }}
+          />
+        </motion.div>
+      )}
+
+      {phase === 2 && (
+        <motion.div
+          key="trainer"
+          className="movie-scene trainer-scene"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 2.5, filter: "blur(15px)" }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="portal portal-purple" />
+          <div className="scene-lightning purple-lightning" />
+          <PixelArrival variant="trainer" />
+
+          <motion.div
+            className="role-title"
+            initial={{ opacity: 0, scale: 0.1, z: -800, filter: "blur(25px)" }}
+            animate={{
+              opacity: [0, 1, 1],
+              scale: [0.1, 1.2, 1],
+              z: [-800, 100, 0],
+              filter: ["blur(25px)", "blur(0px)", "blur(0px)"],
+            }}
+            transition={{ duration: 2.1, delay: 0.45, ease: "easeOut" }}
+          >
+            <span className="role-small">THE POWER OF SHARING KNOWLEDGE</span>
+            <h2>TRAINER</h2>
+            <div className="role-underline purple-line" />
+          </motion.div>
+
+          <motion.div
+            className="portal-flash purple-flash"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: [0, 0.9, 0], scale: [0, 2, 5] }}
+            transition={{ duration: 1.3, delay: 2.2 }}
+          />
+        </motion.div>
+      )}
+
+      {phase === 3 && (
+        <motion.div
+          key="name"
+          className="movie-scene name-scene"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="name-energy" />
+
+          <motion.div
+            className="name-impact"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: [0, 1.8, 0], opacity: [0, 1, 0] }}
+            transition={{ duration: 1.5 }}
+          />
+
+          <motion.div
+            className="swanand-title"
+            initial={{
+              opacity: 0,
+              scale: 2.5,
+              y: 100,
+              filter: "blur(30px)",
+              letterSpacing: "40px",
+            }}
+            animate={{
+              opacity: 1,
+              scale: [2.5, 0.9, 1],
+              y: 0,
+              filter: "blur(0px)",
+              letterSpacing: "10px",
+            }}
+            transition={{
+              duration: 2.3,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+          >
+            <span>SWANAND</span>
+            <div className="name-shine" />
+          </motion.div>
+
+          <motion.div
+            className="name-subline"
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: "75%", opacity: 1 }}
+            transition={{ delay: 1.3, duration: 1 }}
+          />
+        </motion.div>
+      )}
+
+      {phase === 4 && (
+        <motion.div
+          key="final"
+          className="movie-scene final-scene"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+        >
+          <div className="final-photo">
+            <img src="/images/profile.jpg" alt="Swanand Kulkarni" />
+          </div>
+
+          <div className="final-overlay" />
+
+          <motion.div
+            className="final-frame"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.3, ease: "easeOut" }}
+          >
+            <motion.div
+              className="frame-corner top-left"
+              initial={{ width: 0, height: 0 }}
+              animate={{ width: 45, height: 45 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            />
+            <motion.div
+              className="frame-corner top-right"
+              initial={{ width: 0, height: 0 }}
+              animate={{ width: 45, height: 45 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            />
+            <motion.div
+              className="frame-corner bottom-left"
+              initial={{ width: 0, height: 0 }}
+              animate={{ width: 45, height: 45 }}
+              transition={{ delay: 0.7, duration: 0.5 }}
+            />
+            <motion.div
+              className="frame-corner bottom-right"
+              initial={{ width: 0, height: 0 }}
+              animate={{ width: 45, height: 45 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+            />
+
+            <motion.p
+              className="final-overline"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+            >
+              THE MIND BEHIND THE CODE
+            </motion.p>
+
+            <motion.h1
+              className="final-name"
+              initial={{ opacity: 0, scale: 1.5, filter: "blur(15px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              transition={{ delay: 1.1, duration: 1 }}
+            >
+              SWANAND
+            </motion.h1>
+
+            <motion.p
+              className="final-profession"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5 }}
+            >
+              SOFTWARE DEVELOPER <i /> TECHNICAL TRAINER <i /> BUILDER
+            </motion.p>
+
+            <motion.button
+              type="button"
+              className="final-enter"
+              onClick={onEnter}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2, duration: 0.8 }}
+              whileHover={{ scale: 1.07, boxShadow: "0 0 45px #38bdf8" }}
+              whileTap={{ scale: 0.96 }}
+            >
+              ENTER PORTFOLIO
+              <ArrowRight size={18} />
+            </motion.button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+export function CinematicIntro() {
+  const [phase, setPhase] = useState(0);
+  const hasSeenIntro = useSyncExternalStore(
+    subscribeToIntro,
+    getIntroSeen,
+    getServerIntroSeen,
+  );
+  const visible = !hasSeenIntro;
+
+  // Run the cinematic sequence while the intro is visible.
   useEffect(() => {
     if (!visible) return;
 
-    const timer = window.setTimeout(() => {
-      sessionStorage.setItem(introStorageKey, "true");
-      setDismissed(true);
-    }, 12500);
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const sequence = [
+      { nextPhase: 1, delay: 3500 },
+      { nextPhase: 2, delay: 3700 },
+      { nextPhase: 3, delay: 3700 },
+      { nextPhase: 4, delay: 3500 },
+    ];
 
-    return () => window.clearTimeout(timer);
+    let elapsed = 0;
+
+    sequence.forEach(({ nextPhase, delay }) => {
+      elapsed += delay;
+      const timer = setTimeout(() => setPhase(nextPhase), elapsed);
+      timers.push(timer);
+    });
+
+    return () => timers.forEach(clearTimeout);
   }, [visible]);
-
-  const enterPortfolio = () => {
-    sessionStorage.setItem(introStorageKey, "true");
-    setDismissed(true);
-  };
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="cinematic-intro"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Welcome to ${site.name}'s portfolio`}
+          key="cinematic-intro"
+          className="movie-intro"
           initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 1.04,
-            filter: "blur(12px)",
+            scale: 1.08,
+            filter: "blur(15px)",
           }}
-          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 1.2 }}
         >
-          {/* Background portrait — appears after title */}
-          <motion.div
-            className="intro-portrait"
-            initial={{ opacity: 0, scale: 1.18 }}
-            animate={{ opacity: [0, 0, 0.28, 0.48], scale: 1 }}
-            transition={{
-              duration: 3,
-              delay: 5.1,
-              ease: "easeOut",
-            }}
-          >
-            <img
-              src="/images/profile.jpg"
-              alt=""
-              className="intro-portrait-image"
-            />
-          </motion.div>
-
-          {/* Cinematic background */}
-          <div className="intro-dark-overlay" />
-          <div className="intro-grid" />
-          <div className="intro-vignette" />
-
-          {/* Moving light beam */}
-          <motion.div
-            className="intro-light-beam"
-            initial={{ x: "-120%", opacity: 0 }}
-            animate={{ x: "120%", opacity: [0, 0.8, 0] }}
-            transition={{
-              duration: 2,
-              delay: 4.4,
-              ease: "easeInOut",
+          <SpaceParticles />
+          <div className="movie-noise" />
+          <MovieScene
+            phase={phase}
+            onEnter={() => {
+              sessionStorage.setItem(STORAGE_KEY, "true");
+              window.dispatchEvent(new Event("storage"));
             }}
           />
 
-          {/* Scene 1: Characters */}
-          <div className="intro-character-stage">
-
-            <motion.div
-              className="intro-character intro-character-left"
-              initial={{ x: -500, opacity: 0, rotate: -15 }}
-              animate={{
-                x: [ -500, 0, 0 ],
-                opacity: [0, 1, 1, 0],
-                rotate: [-15, 0, 0, -10],
-                scale: [0.7, 1, 1, 0.5],
-              }}
-              transition={{
-                duration: 4.1,
-                times: [0, 0.5, 0.78, 1],
-                delay: 0.5,
-                ease: "easeInOut",
-              }}
-            >
-              <PixelCharacter variant="blue" />
-              <span className="pixel-character-name">DEVELOPER</span>
-            </motion.div>
-
-            <motion.div
-              className="intro-character intro-character-right"
-              initial={{ x: 500, opacity: 0, rotate: 15 }}
-              animate={{
-                x: [500, 0, 0],
-                opacity: [0, 1, 1, 0],
-                rotate: [15, 0, 0, 10],
-                scale: [0.7, 1, 1, 0.5],
-              }}
-              transition={{
-                duration: 4.1,
-                times: [0, 0.5, 0.78, 1],
-                delay: 0.5,
-                ease: "easeInOut",
-              }}
-            >
-              <PixelCharacter variant="violet" />
-              <span className="pixel-character-name">CREATOR</span>
-            </motion.div>
-
-          </div>
-
-          {/* Digital particle explosion */}
-          <motion.div
-            className="intro-particle-burst"
-            initial={{ opacity: 0, scale: 0.1 }}
-            animate={{
-              opacity: [0, 1, 0],
-              scale: [0.1, 1.5, 2.5],
-            }}
-            transition={{ duration: 1.4, delay: 3.6 }}
-          >
-            {Array.from({ length: 32 }).map((_, i) => (
-              <motion.span
-                key={i}
-                className="intro-particle"
-                style={{
-                  left: `${50 + Math.cos((i * Math.PI) / 16) * 45}%`,
-                  top: `${50 + Math.sin((i * Math.PI) / 16) * 45}%`,
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                }}
-                transition={{ duration: 1.3, delay: 3.6 }}
-              />
-            ))}
-          </motion.div>
-
-          {/* Scene 2: Main title */}
-          <motion.div
-            className="intro-title-stage"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 3.1, duration: 0.5 }}
-          >
-            <motion.div
-              className="intro-title-content"
-              initial={{ y: 0, scale: 1 }}
-              animate={{
-                y: [0, 0, -125],
-                scale: [1, 1, 0.72],
-              }}
-              transition={{
-                duration: 2.4,
-                delay: 4.7,
-                times: [0, 0.25, 1],
-                ease: [0.76, 0, 0.24, 1],
-              }}
-            >
-              <motion.p
-                className="intro-title-overline"
-                initial={{ opacity: 0, letterSpacing: "0px" }}
-                animate={{ opacity: 1, letterSpacing: "8px" }}
-                transition={{ delay: 3.2, duration: 1 }}
-              >
-                PRESENTING
-              </motion.p>
-
-              <motion.h1 className="intro-main-title">
-                <motion.span
-                  className="intro-title-first"
-                  initial={{
-                    opacity: 0,
-                    filter: "blur(20px)",
-                    letterSpacing: "35px",
-                    y: 50,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    filter: "blur(0px)",
-                    letterSpacing: "8px",
-                    y: 0,
-                  }}
-                  transition={{
-                    duration: 1.3,
-                    delay: 3.5,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  {firstName.toUpperCase()}
-                </motion.span>
-
-                <motion.span
-                  className="intro-title-last"
-                  initial={{
-                    opacity: 0,
-                    filter: "blur(20px)",
-                    letterSpacing: "25px",
-                    y: 60,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    filter: "blur(0px)",
-                    letterSpacing: "5px",
-                    y: 0,
-                  }}
-                  transition={{
-                    duration: 1.3,
-                    delay: 4,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  {lastName.toUpperCase()}
-                  <span className="intro-title-dot">.</span>
-                </motion.span>
-              </motion.h1>
-
-              <motion.div
-                className="intro-title-line"
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ delay: 4.5, duration: 1 }}
-              />
-
-              <motion.p
-                className="intro-title-subtitle"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 4.8, duration: 0.8 }}
-              >
-                SOFTWARE DEVELOPER
-                <i />
-                TECHNICAL TRAINER
-                <i />
-                BUILDER
-              </motion.p>
-            </motion.div>
-          </motion.div>
-
-          {/* Scene 3: Photo reveal caption */}
-          <motion.div
-            className="intro-final-content"
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: [0, 0, 1], y: [35, 35, 0] }}
-            transition={{ duration: 1.3, delay: 6.7 }}
-          >
-            <div className="intro-final-label">
-              <Sparkles size={14} />
-              THE JOURNEY BEGINS
-            </div>
-
-            <p>
-              Turning ideas into code.
-              <br />
-              Turning knowledge into impact.
-            </p>
-
-            <motion.button
-              type="button"
-              className="cinematic-intro-enter"
-              onClick={enterPortfolio}
-              whileHover={{ scale: 1.06, y: -3 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              ENTER PORTFOLIO
-              <ArrowRight size={17} />
-            </motion.button>
-          </motion.div>
-
-          {/* Progress bar */}
-          <div className="cinematic-intro-progress">
+          <div className="movie-progress">
             <motion.span
               initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 12, ease: "linear" }}
+              animate={{
+                scaleX: phase === 4 ? 1 : (phase + 1) / 5,
+              }}
+              transition={{ duration: 0.8 }}
             />
           </div>
 
-          <span className="cinematic-intro-credit">
-            SWANNYTECH <i /> ORIGINAL PORTFOLIO EXPERIENCE
+          <span className="movie-credit">
+            SWANNYTECH <i /> CINEMATIC EXPERIENCE
           </span>
         </motion.div>
       )}
