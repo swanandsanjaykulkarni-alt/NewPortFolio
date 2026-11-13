@@ -4936,3 +4936,454 @@ p {
     transition: none;
   }
 }
+
+
+
+/* cinematic */
+
+
+/* ==========================================
+   SWANNYTECH — MOVIE OPENING INTRO
+========================================== */
+
+.cinematic-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #02040b;
+  color: white;
+  isolation: isolate;
+}
+
+/* Background portrait reveal */
+
+.intro-portrait {
+  position: absolute;
+  inset: 0;
+  z-index: -5;
+  overflow: hidden;
+}
+
+.intro-portrait-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(.8) contrast(1.15);
+}
+
+.intro-dark-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2,4,11,.9),
+      rgba(2,4,11,.5),
+      rgba(2,4,11,.9)
+    ),
+    linear-gradient(
+      0deg,
+      rgba(2,4,11,.98),
+      rgba(2,4,11,.12),
+      rgba(2,4,11,.85)
+    );
+}
+
+.intro-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  opacity: .15;
+  background-image:
+    linear-gradient(rgba(56,189,248,.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,.2) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+}
+
+.intro-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 15%,
+    rgba(0,0,0,.45) 65%,
+    #000 100%
+  );
+  pointer-events: none;
+}
+
+/* Light beam */
+
+.intro-light-beam {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: -50%;
+  width: 30%;
+  height: 100%;
+  transform: skewX(-20deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(56,189,248,.16),
+    rgba(255,255,255,.4),
+    rgba(124,58,237,.15),
+    transparent
+  );
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+/* ==========================================
+   PIXEL CHARACTERS
+========================================== */
+
+.intro-character-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.intro-character {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  filter: drop-shadow(0 0 25px rgba(56,189,248,.65));
+}
+
+.intro-character-left {
+  left: 10%;
+  margin-top: -64px;
+}
+
+.intro-character-right {
+  right: 10%;
+  margin-top: -64px;
+  filter: drop-shadow(0 0 25px rgba(167,139,250,.65));
+}
+
+.pixel-character-svg {
+  image-rendering: pixelated;
+  width: 120px;
+  height: 160px;
+}
+
+.pixel-character-name {
+  color: #bae6fd;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-shadow: 0 0 15px #38bdf8;
+}
+
+/* Digital explosion */
+
+.intro-particle-burst {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.intro-particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #7dd3fc;
+  box-shadow: 0 0 15px #38bdf8;
+}
+
+/* ==========================================
+   MOVIE TITLE
+========================================== */
+
+.intro-title-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  pointer-events: none;
+}
+
+.intro-title-content {
+  text-align: center;
+  width: min(100%, 1000px);
+  transform-origin: center center;
+}
+
+.intro-title-overline {
+  font-size: 10px;
+  color: #93c5fd;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.intro-main-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 950;
+  line-height: .95;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  text-shadow:
+    0 4px 0 rgba(15,23,42,.9),
+    0 0 35px rgba(56,189,248,.25);
+}
+
+.intro-title-first {
+  display: block;
+  font-size: clamp(55px, 10vw, 120px);
+  color: #f8fafc;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #dbeafe 45%,
+    #60a5fa 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.intro-title-last {
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(35px, 7vw, 85px);
+  color: #a5b4fc;
+  background: linear-gradient(
+    100deg,
+    #60a5fa,
+    #c4b5fd,
+    #67e8f9
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.intro-title-dot {
+  color: #38bdf8;
+  -webkit-text-fill-color: #38bdf8;
+}
+
+.intro-title-line {
+  height: 2px;
+  max-width: 650px;
+  margin: 30px auto 20px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #38bdf8,
+    #a78bfa,
+    transparent
+  );
+  box-shadow: 0 0 20px #38bdf8;
+}
+
+.intro-title-subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: #cbd5e1;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  font-weight: 800;
+}
+
+.intro-title-subtitle i,
+.cinematic-intro-credit i {
+  width: 5px;
+  height: 5px;
+  background: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #38bdf8;
+}
+
+/* ==========================================
+   FINAL HERO REVEAL
+========================================== */
+
+.intro-final-content {
+  position: absolute;
+  z-index: 15;
+  bottom: 12%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.intro-final-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #7dd3fc;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 4px;
+}
+
+.intro-final-content > p {
+  margin-top: 20px;
+  color: #e2e8f0;
+  font-size: clamp(17px, 2vw, 24px);
+  font-weight: 600;
+  line-height: 1.6;
+  text-shadow: 0 2px 20px #000;
+}
+
+/* Enter button */
+
+.cinematic-intro-enter {
+  margin-top: 28px;
+  min-width: 210px;
+  min-height: 54px;
+  padding: 0 24px;
+  border: 1px solid rgba(125,211,252,.65);
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  background: linear-gradient(
+    100deg,
+    rgba(37,99,235,.85),
+    rgba(109,40,217,.85)
+  );
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow:
+    0 0 25px rgba(59,130,246,.25),
+    inset 0 0 15px rgba(255,255,255,.08);
+  transition: box-shadow .3s, border-color .3s;
+}
+
+.cinematic-intro-enter:hover {
+  border-color: #fff;
+  box-shadow: 0 0 40px rgba(56,189,248,.5);
+}
+
+/* Progress */
+
+.cinematic-intro-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: rgba(255,255,255,.1);
+  z-index: 30;
+}
+
+.cinematic-intro-progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  background: linear-gradient(90deg, #2563eb, #a78bfa, #67e8f9);
+  box-shadow: 0 0 15px #38bdf8;
+}
+
+.cinematic-intro-credit {
+  position: absolute;
+  bottom: 25px;
+  right: 35px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+  .intro-character-left {
+    left: 2%;
+  }
+
+  .intro-character-right {
+    right: 2%;
+  }
+
+  .pixel-character-svg {
+    width: 75px;
+    height: 100px;
+  }
+
+  .pixel-character-name {
+    font-size: 7px;
+    letter-spacing: 2px;
+  }
+
+  .intro-title-first {
+    font-size: 13vw;
+  }
+
+  .intro-title-last {
+    font-size: 9vw;
+    letter-spacing: 2px !important;
+  }
+
+  .intro-title-overline {
+    font-size: 8px;
+  }
+
+  .intro-title-subtitle {
+    font-size: 8px;
+    gap: 8px;
+    letter-spacing: 1px;
+  }
+
+  .intro-final-content {
+    bottom: 12%;
+    padding: 0 15px;
+  }
+
+  .intro-final-content > p {
+    font-size: 17px;
+  }
+
+  .cinematic-intro-credit {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 13px;
+    white-space: nowrap;
+    font-size: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-grid {
+    display: none;
+  }
+}
