@@ -1,334 +1,348 @@
 
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import {
-  ArrowDown,
-  ArrowUpRight,
-  Code2,
   Download,
   Network,
+  Code2,
+  ArrowUpRight,
+  GraduationCap,
   Sparkles,
+  Terminal,
+  Database,
+  Braces,
+  BrainCircuit,
+  Layers,
+  BriefcaseBusiness,
 } from "lucide-react";
 
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "motion/react";
-
-import { useEffect, useRef, useState } from "react";
-import { Character3D } from "@/components/Character3D";
-import { site } from "@/lib/site";
-
-const floatingSkills = [
-  { name: "JAVA", icon: "☕", className: "skill-java" },
-  { name: "REACT", icon: "⚛", className: "skill-react" },
-  { name: "SPRING BOOT", icon: "◆", className: "skill-spring" },
-  { name: "DATABASE", icon: "◉", className: "skill-db" },
-  { name: "TYPESCRIPT", icon: "TS", className: "skill-ts" },
-];
+import "./ClassroomHero.css";
 
 export function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [cardFlipped, setCardFlipped] = useState(false);
-  const reduceMotion = useReducedMotion();
+  const [dark, setDark] = useState(true);
+  const [flipped, setFlipped] = useState(false);
 
-  const heroRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const characterY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const characterScale = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -75]);
-  const textOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.75, 1],
-    [1, 0.8, 0.1]
-  );
-
-  useEffect(() => {
-    if (reduceMotion || site.identity.length < 2) return;
-
-    const timer = window.setInterval(() => {
-      setRoleIndex((current) => (current + 1) % site.identity.length);
-    }, 2800);
-
-    return () => window.clearInterval(timer);
-  }, [reduceMotion]);
+  const skills = [
+    { name: "Java", icon: <Code2 size={15} /> },
+    { name: "Spring Boot", icon: <Braces size={15} /> },
+    { name: "Full Stack", icon: <Layers size={15} /> },
+    { name: "Python & AI", icon: <BrainCircuit size={15} /> },
+    { name: "DSA", icon: <Terminal size={15} /> },
+    { name: "Database", icon: <Database size={15} /> },
+  ];
 
   return (
-    <section ref={heroRef} id="home" className="hero-section">
-
-      {/* Background video */}
-      <video
-        className="hero-video"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      >
-        <source src="/videos/code.mp4" type="video/mp4" />
-      </video>
-
-      {/* Background effects */}
-      <div className="hero-overlay" />
-      <div className="hero-grid-pattern" />
-      <div className="hero-noise" />
-      <div className="hero-glow hero-glow-one" />
-      <div className="hero-glow hero-glow-two" />
-
-      <div className="section-wrap hero-container">
-
-        {/* Top introduction */}
-        <motion.div
-          className="hero-top-label"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="availability-dot" />
-          OPEN TO EXCITING OPPORTUNITIES
-          <span className="hero-label-divider">/</span>
-          PORTFOLIO 2026
-        </motion.div>
-
-        <div className="hero-grid">
-
-          {/* LEFT CONTENT */}
-          <motion.div
-            className="hero-copy"
-            style={{
-              y: reduceMotion ? 0 : textY,
-              opacity: reduceMotion ? 1 : textOpacity,
-            }}
-          >
-
-            <motion.div
-              className="hero-eyebrow"
-              initial={{ opacity: 0, x: -25 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              <Sparkles size={15} />
-              HELLO, WORLD! I&apos;M
-            </motion.div>
-
-            <h1 className="hero-title">
-              <motion.span
-                className="hero-title-line"
-                initial={{ opacity: 0, y: 65 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.25 }}
-              >
-                Swanand
-              </motion.span>
-
-              <motion.span
-                className="hero-title-line hero-gradient-name"
-                initial={{ opacity: 0, y: 65 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.45 }}
-              >
-                Kulkarni<span className="hero-period">.</span>
-              </motion.span>
-            </h1>
-
-            <div className="hero-role-area">
-              <span className="hero-role-prefix">I AM A</span>
-
-              <div className="hero-role-window">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={site.identity[roleIndex]}
-                    className="hero-role"
-                    initial={reduceMotion ? false : { opacity: 0, y: 25 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={reduceMotion ? undefined : { opacity: 0, y: -25 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    {site.identity[roleIndex]}
-                  </motion.span>
-                </AnimatePresence>
-              </div>
-            </div>
-
-            <motion.p
-              className="hero-intro"
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              {site.intro}
-            </motion.p>
-
-            {/* Buttons */}
-            <motion.div
-              className="hero-actions"
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              <motion.a
-                href="#projects"
-                className="hero-button hero-button-primary"
-                whileHover={reduceMotion ? {} : { scale: 1.05, y: -4 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Explore my work
-                <ArrowUpRight size={18} />
-              </motion.a>
-
-              <motion.a
-                href={site.resumeHref}
-                className="hero-button hero-button-secondary"
-                whileHover={reduceMotion ? {} : { scale: 1.04, y: -4 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                <Download size={17} />
-                Download resume
-              </motion.a>
-            </motion.div>
-
-            {/* Social links */}
-            <motion.div
-              className="hero-socials"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2 }}
-            >
-              <a href={site.linkedin} target="_blank" rel="noreferrer">
-                <Network size={17} />
-                LinkedIn
-              </a>
-
-              <a href={site.github} target="_blank" rel="noreferrer">
-                <Code2 size={18} />
-                GitHub
-              </a>
-
-              <span className="hero-social-separator" />
-              <span className="hero-social-caption">
-                LET&apos;S BUILD SOMETHING GREAT
-              </span>
-            </motion.div>
-          </motion.div>
-
-          {/* RIGHT VISUAL */}
-          <motion.div
-            className="hero-art"
-            style={{
-              y: reduceMotion ? 0 : characterY,
-              scale: reduceMotion ? 1 : characterScale,
-            }}
-            initial={{ opacity: 0, scale: 0.8, x: 40 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1.2, delay: 0.35 }}
-          >
-
-            {/* Orbital rings */}
-            <div className="hero-orbit hero-orbit-one" />
-            <div className="hero-orbit hero-orbit-two" />
-            <div className="hero-orbit hero-orbit-three" />
-
-            <div className="hero-profile-glow" />
-
-            {/* Character flip card */}
-            <motion.div
-              className={`hero-profile-card ${cardFlipped ? "is-flipped" : ""}`}
-              onClick={() => setCardFlipped(!cardFlipped)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  setCardFlipped(!cardFlipped);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-pressed={cardFlipped}
-              aria-label="Flip profile card to explore skills"
-              whileHover={reduceMotion ? {} : { y: -8 }}
-            >
-              <div className="hero-profile-card-inner">
-
-                <div className="hero-profile-card-face hero-profile-card-front">
-                  <Character3D className="character-stage-hero" />
-
-                  <div className="hero-art-caption">
-                    <span className="caption-pulse" />
-                    DIGITAL CREATOR
-                    <span className="caption-click">CLICK TO EXPLORE ↗</span>
-                  </div>
-                </div>
-
-                <div className="hero-profile-card-face hero-profile-card-back">
-                  <span className="profile-card-label">
-                    THE MIND BEHIND THE CODE
-                  </span>
-
-                  <h2>{site.name}</h2>
-                  <p>{site.role}</p>
-
-                  <div className="profile-card-skills">
-                    {site.skills.slice(0, 8).map((skill) => (
-                      <span key={skill}>{skill}</span>
-                    ))}
-                  </div>
-
-                  <span className="profile-card-flip-hint">
-                    ↩ CLICK TO RETURN
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Floating technology badges */}
-            {floatingSkills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                className={`floating-skill ${skill.className}`}
-                animate={
-                  reduceMotion
-                    ? {}
-                    : {
-                        y: [0, -15, 0],
-                        rotate: [0, 3, 0],
-                      }
-                }
-                transition={{
-                  duration: 4 + index * 0.7,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: index * 0.3,
-                }}
-              >
-                <span className="floating-skill-icon">{skill.icon}</span>
-                <span>{skill.name}</span>
-              </motion.div>
-            ))}
-
-            <div className="hero-art-index">01 / CREATIVE DEVELOPER</div>
-          </motion.div>
+    <section
+      className={`classroom-hero ${dark ? "dark-mode" : "light-mode"}`}
+    >
+      {/* TOP NAVIGATION */}
+      <div className="hero-topbar">
+        <div className="hero-brand">
+          <span className="brand-mark">S</span>
+          <span>
+            SWANAND<span className="brand-dot">.</span>
+          </span>
         </div>
 
-        {/* Bottom scroll indicator */}
-        <motion.a
-          href="#services"
-          className="hero-bottomline"
-          animate={reduceMotion ? {} : { y: [0, 7, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+        {/* CLASSROOM WALL SWITCH */}
+        <button
+          className={`classroom-switch ${
+            dark ? "switch-dark" : "switch-light"
+          }`}
+          onClick={() => setDark(!dark)}
+          aria-label="Toggle classroom lights"
+          title={dark ? "Turn classroom lights on" : "Turn classroom lights off"}
         >
-          <span>SCROLL TO EXPLORE</span>
-          <ArrowDown size={15} />
-        </motion.a>
+          <span className="switch-label">LIGHTS</span>
+          <span className="switch-plate">
+            <span className="switch-lever" />
+          </span>
+          <span className="switch-state">{dark ? "OFF" : "ON"}</span>
+        </button>
+      </div>
 
-        <div className="hero-side-index">SWANAND KULKARNI — PORTFOLIO</div>
+      {/* MAIN PRESENTATION AREA */}
+      <div className="hero-stage">
+        {/* DIGITAL BOARD */}
+        <div className="presentation-board">
+          <div className="board-topline">
+            <span className="board-live">
+              <i />
+              LIVE PRESENTATION
+            </span>
+            <span className="board-index">01 / INTRODUCTION</span>
+          </div>
+
+          <div className="board-content">
+            <div className="board-kicker">
+              <Sparkles size={15} />
+              HELLO, I&apos;M
+            </div>
+
+            {/* TYPING NAME */}
+            <h1 className="board-name">
+              <span className="typing-line">Swanand</span>
+              <span className="typing-line typing-gradient">
+                Kulkarni
+              </span>
+            </h1>
+
+            <div className="board-role">
+              <span className="role-line" />
+              <span className="role-changing">
+                SOFTWARE DEVELOPER
+              </span>
+              <span className="role-separator">/</span>
+              <span>TECHNICAL TRAINER</span>
+            </div>
+
+            <p className="board-description">
+              I build software, simplify technology and help the next
+              generation of developers turn ideas into real-world skills.
+            </p>
+
+            <div className="board-skills-title">
+              <span>MY TECH STACK</span>
+              <span className="board-spark">✳</span>
+            </div>
+
+            <div className="board-skills">
+              {skills.map((skill, index) => (
+                <div
+                  className="skill-chip"
+                  key={skill.name}
+                  style={{ animationDelay: `${index * 120}ms` }}
+                >
+                  {skill.icon}
+                  {skill.name}
+                </div>
+              ))}
+            </div>
+
+            <div className="board-bottom">
+              <div className="board-stat">
+                <strong>01</strong>
+                <span>DEVELOPER</span>
+              </div>
+
+              <div className="stat-divider" />
+
+              <div className="board-stat">
+                <strong>02</strong>
+                <span>TRAINER</span>
+              </div>
+
+              <div className="stat-divider" />
+
+              <div className="board-stat">
+                <strong>03</strong>
+                <span>BUILDER</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="board-scan" />
+          <div className="board-corner board-corner-one" />
+          <div className="board-corner board-corner-two" />
+          <div className="board-glow" />
+        </div>
+
+        {/* PROFILE CARD */}
+        <div className="portrait-side">
+          <div className="portrait-caption">
+            <span className="caption-dot" />
+            THE PERSON BEHIND THE CODE
+          </div>
+
+          <button
+            className={`portrait-flip ${flipped ? "is-flipped" : ""}`}
+            onClick={() => setFlipped(!flipped)}
+            aria-label="Flip profile card"
+          >
+            <span className="flip-inner">
+              {/* FRONT */}
+              <span className="portrait-face portrait-front">
+                <span className="portrait-number">SK / 01</span>
+
+                <span className="portrait-image-wrap">
+                  <Image
+                    src="/images/profile.png"
+                    alt="Swanand Kulkarni"
+                    fill
+                    priority
+                    sizes="(max-width: 900px) 80vw, 340px"
+                    className="profile-image"
+                  />
+                </span>
+
+                <span className="portrait-name">
+                  SWANAND KULKARNI
+                  <small>DEVELOPER • TRAINER • BUILDER</small>
+                </span>
+
+                <span className="flip-hint">
+                  CLICK TO FLIP ↗
+                </span>
+              </span>
+
+              {/* BACK */}
+              <span className="portrait-face portrait-back">
+                <span className="back-icon">
+                  <GraduationCap size={30} />
+                </span>
+
+                <strong>A LITTLE ABOUT ME</strong>
+
+                <span className="back-copy">
+                  Passionate about building useful software and making
+                  technology easier to understand.
+                </span>
+
+                <span className="back-divider" />
+
+                <span className="back-point">
+                  <Code2 size={16} />
+                  Software Development
+                </span>
+
+                <span className="back-point">
+                  <GraduationCap size={16} />
+                  Technical Training
+                </span>
+
+                <span className="back-point">
+                  <BriefcaseBusiness size={16} />
+                  Product Building
+                </span>
+
+                <span className="flip-hint">
+                  CLICK TO RETURN ↗
+                </span>
+              </span>
+            </span>
+          </button>
+
+          {/* FLOATING LABELS */}
+          <div className="floating-label label-developer">
+            <Code2 size={16} />
+            Developer
+          </div>
+
+          <div className="floating-label label-trainer">
+            <GraduationCap size={16} />
+            Trainer
+          </div>
+
+          <div className="floating-label label-builder">
+            <Sparkles size={16} />
+            Idea to Product
+          </div>
+        </div>
+      </div>
+
+      {/* CLASSROOM WITH TEACHER AND STUDENTS */}
+      <div className="classroom-scene">
+        <div className="classroom-floor" />
+
+        {/* TEACHER */}
+        <div className="classroom-teacher">
+          <div className="teacher-shadow" />
+
+          <div className="teacher-character">
+            <div className="teacher-head">
+              <span className="teacher-hair" />
+              <span className="teacher-eye eye-left" />
+              <span className="teacher-eye eye-right" />
+              <span className="teacher-smile" />
+            </div>
+
+            <div className="teacher-neck" />
+
+            <div className="teacher-body">
+              <span className="teacher-shirt-detail" />
+              <span className="teacher-arm teacher-arm-left" />
+              <span className="teacher-arm teacher-arm-right" />
+              <span className="teacher-hand" />
+            </div>
+
+            <div className="teacher-legs">
+              <span />
+              <span />
+            </div>
+
+            {/* TEACHER'S STICK */}
+            <span className="teacher-stick" />
+          </div>
+
+          <span className="teacher-tag">
+            YOUR INSTRUCTOR
+          </span>
+        </div>
+
+        {/* STUDENTS */}
+        <div className="classroom-students">
+          {["one", "two", "three", "four"].map((student) => (
+            <div
+              className={`student student-${student}`}
+              key={student}
+            >
+              <span className="student-head" />
+              <span className="student-body" />
+              <span className="student-desk" />
+            </div>
+          ))}
+        </div>
+
+        <div className="classroom-floor-label">
+          <span />
+          LEARN · BUILD · CREATE
+        </div>
+      </div>
+
+      {/* SOCIAL AND RESUME LINKS */}
+      <div className="hero-actions">
+        <a
+          className="action-primary"
+          href="/resume.pdf"
+          download
+        >
+          <Download size={17} />
+          Download Resume
+        </a>
+
+        <a
+          className="action-secondary"
+          href="https://www.linkedin.com/in/swanandtrainer/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Network size={17} />
+          LinkedIn
+          <ArrowUpRight size={14} />
+        </a>
+
+        <a
+          className="action-secondary"
+          href="https://github.com/swanandsanjaykulkarni-alt"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Code2 size={17} />
+          GitHub
+          <ArrowUpRight size={14} />
+        </a>
+      </div>
+
+      {/* FOOTER */}
+      <div className="hero-footer">
+        <span>
+          <i />
+          AVAILABLE FOR OPPORTUNITIES
+        </span>
+
+        <span>BUILDING • TEACHING • LEARNING</span>
       </div>
     </section>
   );

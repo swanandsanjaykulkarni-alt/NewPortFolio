@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
 import { useEffect, useState, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "swannytech-intro-seen";
@@ -48,7 +49,7 @@ function PixelCharacter({ purple = false }: { purple?: boolean }) {
 function SpaceParticles() {
   return (
     <div className="space-particles" aria-hidden="true">
-      {Array.from({ length: 65 }, (_, i) => (
+      {Array.from({ length: 32 }, (_, i) => (
         <span
           key={i}
           style={{
@@ -116,23 +117,23 @@ function MovieScene({
   onEnter: () => void;
 }) {
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence initial={false}>
       {phase === 0 && (
         <motion.div
           key="universe"
           className="movie-scene universe-scene"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 2.5, filter: "blur(12px)" }}
-          transition={{ duration: 0.8 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.9 }}
         >
           <div className="universe-glow" />
           <div className="wormhole" />
           <div className="warp-tunnel" />
           <motion.div
             className="universe-caption"
-            initial={{ opacity: 0, letterSpacing: "2px" }}
-            animate={{ opacity: [0, 1, 1, 0], letterSpacing: "10px" }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: [0, 1, 1, 0], scale: 1 }}
             transition={{ duration: 3.2 }}
           >
             A NEW JOURNEY BEGINS
@@ -146,8 +147,8 @@ function MovieScene({
           className="movie-scene developer-scene"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 2.3, filter: "blur(15px)" }}
-          transition={{ duration: 0.6 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
         >
           <div className="portal portal-blue" />
           <div className="scene-lightning blue-lightning" />
@@ -155,12 +156,11 @@ function MovieScene({
 
           <motion.div
             className="role-title"
-            initial={{ opacity: 0, scale: 0.1, z: -800, filter: "blur(25px)" }}
+            initial={{ opacity: 0, scale: 0.1, z: -800 }}
             animate={{
               opacity: [0, 1, 1],
               scale: [0.1, 1.2, 1],
               z: [-800, 100, 0],
-              filter: ["blur(25px)", "blur(0px)", "blur(0px)"],
             }}
             transition={{ duration: 2.1, delay: 0.45, ease: "easeOut" }}
           >
@@ -172,8 +172,8 @@ function MovieScene({
           <motion.div
             className="portal-flash blue-flash"
             initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: [0, 0.9, 0], scale: [0, 2, 5] }}
-            transition={{ duration: 1.3, delay: 2.2 }}
+            animate={{ opacity: [0, 0.28, 0], scale: [0, 1.4, 3] }}
+            transition={{ duration: 1.1, delay: 2.2 }}
           />
         </motion.div>
       )}
@@ -184,8 +184,8 @@ function MovieScene({
           className="movie-scene trainer-scene"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 2.5, filter: "blur(15px)" }}
-          transition={{ duration: 0.6 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
         >
           <div className="portal portal-purple" />
           <div className="scene-lightning purple-lightning" />
@@ -193,12 +193,11 @@ function MovieScene({
 
           <motion.div
             className="role-title"
-            initial={{ opacity: 0, scale: 0.1, z: -800, filter: "blur(25px)" }}
+            initial={{ opacity: 0, scale: 0.1, z: -800 }}
             animate={{
               opacity: [0, 1, 1],
               scale: [0.1, 1.2, 1],
               z: [-800, 100, 0],
-              filter: ["blur(25px)", "blur(0px)", "blur(0px)"],
             }}
             transition={{ duration: 2.1, delay: 0.45, ease: "easeOut" }}
           >
@@ -210,8 +209,8 @@ function MovieScene({
           <motion.div
             className="portal-flash purple-flash"
             initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: [0, 0.9, 0], scale: [0, 2, 5] }}
-            transition={{ duration: 1.3, delay: 2.2 }}
+            animate={{ opacity: [0, 0.28, 0], scale: [0, 1.4, 3] }}
+            transition={{ duration: 1.1, delay: 2.2 }}
           />
         </motion.div>
       )}
@@ -240,15 +239,11 @@ function MovieScene({
               opacity: 0,
               scale: 2.5,
               y: 100,
-              filter: "blur(30px)",
-              letterSpacing: "40px",
             }}
             animate={{
               opacity: 1,
               scale: [2.5, 0.9, 1],
               y: 0,
-              filter: "blur(0px)",
-              letterSpacing: "10px",
             }}
             transition={{
               duration: 2.3,
@@ -277,7 +272,13 @@ function MovieScene({
           transition={{ duration: 1.2 }}
         >
           <div className="final-photo">
-            <img src="/images/profile.jpg" alt="Swanand Kulkarni" />
+            <Image
+              src="/images/profile.png"
+              alt="Swanand Kulkarni"
+              fill
+              sizes="100vw"
+              preload
+            />
           </div>
 
           <div className="final-overlay" />
@@ -324,8 +325,8 @@ function MovieScene({
 
             <motion.h1
               className="final-name"
-              initial={{ opacity: 0, scale: 1.5, filter: "blur(15px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              initial={{ opacity: 0, scale: 1.08 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.1, duration: 1 }}
             >
               SWANAND
@@ -398,12 +399,10 @@ export function CinematicIntro() {
         <motion.div
           key="cinematic-intro"
           className="movie-intro"
-          initial={{ opacity: 1 }}
+          initial={false}
           animate={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 1.08,
-            filter: "blur(15px)",
           }}
           transition={{ duration: 1.2 }}
         >
