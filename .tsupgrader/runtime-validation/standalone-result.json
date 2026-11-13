@@ -1,0 +1,195 @@
+{
+  "planHash": "d85fe02f985b41467130259b2209ce7629f5ed371e03328c08a5d695646837ff",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-11-13T06:55:54.1510310Z",
+  "retryCount": 1,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 75800,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "npm warn Unknown env config \u0022scripts-prepend-node-path\u0022. This will stop working in the next major version of npm. See \u0060npm help npmrc\u0060 for supported config options.\r\n\r\n\u003E swannytech-portfolio@0.1.0 build\r\n\u003E next build\r\n\r\n\u25B2 Next.js 16.4.3 (Turbopack)\r\n\u26A0 Warning: Next.js ignored package-lock.json in C:\\Users\\kulka because it is outside the current Git repository (C:\\Users\\kulka\\Desktop\\SwannyTech-Portfolio\\swannytech-portfolio).\r\n To use this directory, set \u0060turbopack.root\u0060 in your Next.js config.\r\n\r\n\u2713 Running next.config.ts took 42ms\r\n- Cache Components enabled\r\n- Partial Prefetching enabled\r\n- Experiments (use with caution):\r\n  \u2713 agentFeedback\r\n\r\n  Creating an optimized production build ...\r\n\u2713 Compiled successfully in 1609ms\r\n  Running TypeScript ...\r\n  Finished TypeScript in 2.9s ...\r\n  Collecting page data using 5 workers ...\r\n  Generating static pages using 5 workers (0/4) ...\r\n  Generating static pages using 5 workers (1/4) \r\n  Generating static pages using 5 workers (2/4) \r\n  Generating static pages using 5 workers (3/4) \r\n\u2713 Generating static pages using 5 workers (4/4) in 912ms\r\n  Finalizing page optimization ...\r\n\r\nRoute (app)\r\n\u250C \u25CB /\r\n\u2514 \u25CB /_not-found\r\n\r\n\r\n\u25CB  (Static)  prerendered as static content\r\n\r\n",
+        "durationMs": 8547
+      },
+      {
+        "name": "eslint",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "npm warn Unknown env config \u0022scripts-prepend-node-path\u0022. This will stop working in the next major version of npm. See \u0060npm help npmrc\u0060 for supported config options.\r\n\r\n\u003E swannytech-portfolio@0.1.0 lint\r\n\u003E eslint\r\n\r\n",
+        "durationMs": 7224
+      },
+      {
+        "name": "tests-pass",
+        "kind": "process",
+        "verificationMethod": "test-results",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "npm warn Unknown env config \u0022scripts-prepend-node-path\u0022. This will stop working in the next major version of npm. See \u0060npm help npmrc\u0060 for supported config options.\r\n\r\n\u003E swannytech-portfolio@0.1.0 test\r\n\u003E vitest run\r\n\r\n\r\n\u001B[1m\u001B[46m RUN \u001B[49m\u001B[22m \u001B[36mv3.2.7 \u001B[39m\u001B[90mC:/Users/kulka/Desktop/SwannyTech-Portfolio/swannytech-portfolio\u001B[39m\r\n\r\n \u001B[32m\u2713\u001B[39m tests/site.test.ts \u001B[2m(\u001B[22m\u001B[2m3 tests\u001B[22m\u001B[2m)\u001B[22m\u001B[32m 4\u001B[2mms\u001B[22m\u001B[39m\r\n\r\n\u001B[2m Test Files \u001B[22m \u001B[1m\u001B[32m1 passed\u001B[39m\u001B[22m\u001B[90m (1)\u001B[39m\r\n\u001B[2m      Tests \u001B[22m \u001B[1m\u001B[32m3 passed\u001B[39m\u001B[22m\u001B[90m (3)\u001B[39m\r\n\u001B[2m   Start at \u001B[22m 12:25:48\r\n\u001B[2m   Duration \u001B[22m 783ms\u001B[2m (transform 80ms, setup 0ms, collect 85ms, tests 4ms, environment 0ms, prepare 297ms)\u001B[22m\r\n\r\n",
+        "durationMs": 2143,
+        "testResults": {
+          "testFramework": "vitest",
+          "runnerDetectedFrom": "package_json",
+          "testsTotal": 3,
+          "testsPassed": 3,
+          "testsFailed": 0,
+          "testsSkipped": 0,
+          "parseFailed": false
+        }
+      },
+      {
+        "name": "dev-server-serves-home",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!DOCTYPE html\u003E\u003Chtml lang=\u0022en\u0022 class=\u0022geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable syne_27372616-module__Yi-KbG__variable h-full antialiased\u0022\u003E\u003Chead\u003E\u003Cmeta charSet=\u0022utf-8\u0022/\u003E\u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1\u0022/\u003E\u003Clink rel=\u0022stylesheet\u0022 href=\u0022/_next/static/chunks/%5Broot-of-the-server%5D__0xcv-e5aibxtf._.css\u0022 data-precedence=\u0022next_static/chunks/[root-of-the-server]__0xcv-e5aibxtf._.css\u0022/\u003E\u003Clink rel=\u0022stylesheet\u0022 href=\u0022/_next/static/chunks/components_ClassroomHero_css_1j-4nrqk9g7qr.css\u0022 data-precedence=\u0022next_static/chunks/components_ClassroomHero_css_1j-4nrqk9g7qr.css\u0022/\u003E\u003Clink rel=\u0022preload\u0022 as=\u0022script\u0022 fetchPriority=\u0022low\u0022 href=\u0022/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_03l4kld1mrwfx._.js\u0022/\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jmam7qwg.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/1daa_next_dist_compiled_react-dom_cjs_react-dom-client_development_0mp0cp_t-ezj9.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/1q96_modules_next_dist_compiled_react-dom_cjs_react-dom_development_1sqry0_53krp4.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_react-dom_0grqycjrj6mju._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_1amofcmz--cdp._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_client_14zvornz047l2._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqwj2323d._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_1anvha4rlo79g._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/turbopack-_00pkkjbg3g3xr._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_219uq1sj0q91c._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_0kamfzuurahgr._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_1s_x-r5o26ws2._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_1dolhssqz9w3d._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Ctitle\u003ESwanand Sanjay Kulkarni \u2014 Software Developer \u0026amp; Technical Trainer\u003C/title\u003E\u003Cmeta name=\u0022description\u0022 content=\u0022Personal portfolio of Swanand Sanjay Kulkarni, Software Development Engineer and freelance technical trainer.\u0022/\u003E\u003Clink rel=\u0022icon\u0022 href=\u0022/favicon.ico?favicon.117ezoe8m31dk.ico\u0022 sizes=\u002248x48\u0022 type=\u0022image/x-icon\u0022/\u003E\u003Cmeta name=\u0022next-size-adjust\u0022 content=\u0022\u0022/\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_build_polyfills_polyfill-nomodule.js\u0022 noModule=\u0022\u0022\u003E\u003C/script\u003E\u003C/head\u003E\u003Cbody class=\u0022min-h-full bg-background text-foreground\u0022\u003E\u003Cdiv hidden=\u0022\u0022\u003E\u003C!--$--\u003E\u003C!--/$--\u003E\u003C/div\u003E  \u003Cdiv class=\u0022animated-background\u0022 aria-hidden=\u0022true\u0022\u003E\u003Cdiv class=\u0022animated-background-grid\u0022\u003E\u003C/div\u003E\u003Cdiv class=\u0022ambient-orb ambient-orb-one\u0022\u003E\u003C/div\u003E\u003Cdiv class=\u0022ambient-orb ambient-orb-two\u0022\u003E\u003C/div\u003E\u003Cdiv class=\u0022ambient-orb ambient-orb-three\u0022\u003E\u003C/div\u003E\u003Cdiv class=\u0022animated-cursor-glow\u0022\u003E\u003C/div\u003E\u003Cdiv class=\u0022cursor-light\u0022\u003E\u003C/div\u003E\u003Cdiv class=\u0022animated-particles\u0022\u003E\u003Cspan class=\u0022animated-particle\u0022 style=\u0022--particle-x:11%;--particle-delay:0s;--particle-duration:8s\u0022\u003E\u003C/span\u003E\u003Cspan class=\u0022animated-particle\u0022 style=\u0022--particle-x:48%;--particle-delay:-0.8s;--particle-duration:9s\u0022\u003E\u003C/span\u003E\u003Cspan class=\u0022animated-particle\u0022 style=\u0022--particle-x:85%;--particle-delay:-1.6s;--particle-duration:10s\u0022\u003E\u003C/span\u003E\u003Cspan class=\u0022animated-particle\u0022 style=\u0022--particle-x:22%;--particle-delay:-2.4000000000000004s;--particle-duration:11s\u0022\u003E\u003C/span\u003E\u003Cspan class=\u0022animated-particle\u0022 style=\u0022--particle-x:59%;--particle-delay:-3.2s;--particle-duration:12s\u0022\u003E\u003C/span\u003E\u003Cspan class=\u0022animated-particle\u0022 style=\u0022--particle-x:96%;--particle-delay:-4s;--particle-duration:13s\u0022\u003E\u003C/span\u003E\u003Cspan class=\u0022animated-particle\u0022 style=\u0022--particle-x:33%;--particle-delay:-4.800000000000001s;--particle-duration:14s\u0022\u003E\u003C/span\u003E\u003Cspan class=\u0022animated-particle\u0022 style=\u0022--particle-x:70%;--\n\u2026[truncated]",
+        "durationMs": 4291
+      }
+    ],
+    "executions": [
+      {
+        "source": "setup[0]",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "ci"
+        ],
+        "cwd": "C:\\Users\\kulka\\Desktop\\SwannyTech-Portfolio\\swannytech-portfolio",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v26.13.0",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.20.0",
+        "cleanup": {
+          "RootProcessId": 8512,
+          "Completed": true,
+          "ProcessesObserved": 9,
+          "ProcessesTerminated": 1,
+          "Failure": null
+        }
+      },
+      {
+        "source": "production-build",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "C:\\Users\\kulka\\Desktop\\SwannyTech-Portfolio\\swannytech-portfolio",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v26.13.0",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.20.0",
+        "cleanup": {
+          "RootProcessId": 13956,
+          "Completed": true,
+          "ProcessesObserved": 20,
+          "ProcessesTerminated": 1,
+          "Failure": null
+        }
+      },
+      {
+        "source": "eslint",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "run",
+          "lint"
+        ],
+        "cwd": "C:\\Users\\kulka\\Desktop\\SwannyTech-Portfolio\\swannytech-portfolio",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v26.13.0",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.20.0",
+        "cleanup": {
+          "RootProcessId": 17468,
+          "Completed": true,
+          "ProcessesObserved": 7,
+          "ProcessesTerminated": 1,
+          "Failure": null
+        }
+      },
+      {
+        "source": "tests-pass",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "test"
+        ],
+        "cwd": "C:\\Users\\kulka\\Desktop\\SwannyTech-Portfolio\\swannytech-portfolio",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v26.13.0",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.20.0",
+        "cleanup": {
+          "RootProcessId": 1256,
+          "Completed": true,
+          "ProcessesObserved": 24,
+          "ProcessesTerminated": 1,
+          "Failure": null
+        }
+      },
+      {
+        "source": "dev-server-serves-home",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "run",
+          "dev",
+          "--",
+          "--port",
+          "3107"
+        ],
+        "cwd": "C:\\Users\\kulka\\Desktop\\SwannyTech-Portfolio\\swannytech-portfolio",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v26.13.0",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.20.0",
+        "cleanup": {
+          "RootProcessId": 22868,
+          "Completed": true,
+          "ProcessesObserved": 14,
+          "ProcessesTerminated": 8,
+          "Failure": null
+        }
+      }
+    ]
+  }
+}
