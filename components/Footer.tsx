@@ -1,89 +1,163 @@
+
 "use client";
 
-import { ArrowUpRight, Mail } from "lucide-react";
-import { useSyncExternalStore } from "react";
-import { useState, type FormEvent } from "react";
-import { site } from "@/lib/site";
+import { useEffect, useState } from "react";
+import {
+  ArrowUpRight,
+  ArrowUp,
+  Code2,
+  Mail,
+  Sparkles,
+} from "lucide-react";
 
-const subscribe = () => () => {};
-const getCurrentYear = () => new Date().getFullYear();
-const getServerYear = () => null;
+import { site } from "@/lib/site";
+import "./Footer.css";
 
 export function Footer() {
-  const year = useSyncExternalStore(subscribe, getCurrentYear, getServerYear);
-  const [contactStatus, setContactStatus] = useState("");
+  const [year, setYear] = useState<number | null>(null);
 
-  const submitContactForm = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const name = String(formData.get("name") ?? "").trim();
-    const email = String(formData.get("email") ?? "").trim();
-    const message = String(formData.get("message") ?? "").trim();
-    const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
-    const body = encodeURIComponent(`${message}\n\nFrom: ${name}\nEmail: ${email}`);
-
-    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
-    setContactStatus("Your email app should open with your message ready to send.");
-  };
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
-    <footer id="contact" className="portfolio-footer">
-      <div className="section-wrap">
-        <div className="footer-cta">
-          <span className="section-kicker">
-            Freelance &amp; training enquiries
-          </span>
-          <h2>Have a project?<br />Let&apos;s build it together.</h2>
-          <div className="footer-contact-layout">
-            <p className="footer-contact-intro">
-              Software development, technical training, and Java &amp; DSA mentorship.
+    <footer className="portfolio-footer">
+      <div className="footer-glow footer-glow-one" />
+      <div className="footer-glow footer-glow-two" />
+
+      <div className="footer-container">
+        <div className="footer-top">
+          <div className="footer-ending">
+            <span className="footer-kicker">
+              <Sparkles size={14} />
+              THE END OF THE PAGE, NOT THE JOURNEY
+            </span>
+
+            <h2>
+              THANKS FOR
+              <br />
+              <span>SCROLLING.</span>
+            </h2>
+
+            <p>
+              Keep learning. Keep creating. Keep moving forward.
             </p>
-            <form className="footer-contact-form" onSubmit={submitContactForm}>
-              <label>
-                Your name
-                <input name="name" autoComplete="name" required />
-              </label>
-              <label>
-                Email address
-                <input name="email" type="email" autoComplete="email" required />
-              </label>
-              <label>
-                What would you like to discuss?
-                <textarea name="message" rows={3} required />
-              </label>
-              <button className="footer-cta-button" type="submit">
-                <Mail size={16} /> Prepare email <ArrowUpRight size={16} />
-              </button>
-              <p className="footer-contact-status" role="status" aria-live="polite">
-                {contactStatus}
-              </p>
-            </form>
+          </div>
+
+          <div className="footer-identity">
+            <div className="footer-identity-top">
+              <span className="footer-small-label">
+                A LITTLE ABOUT ME
+              </span>
+
+              <div className="footer-identity-mark">
+                {site.shortName}
+              </div>
+            </div>
+
+            <h3>{site.name}</h3>
+            <p className="footer-role">{site.role}</p>
+
+            <p className="footer-description">
+              Building software, sharing knowledge and helping people
+              grow through technology.
+            </p>
+
+            <a
+              className="footer-email-link"
+              href={`mailto:${site.email}`}
+            >
+              <Mail size={17} />
+              <span>{site.email}</span>
+              <ArrowUpRight size={17} />
+            </a>
           </div>
         </div>
 
-        <div className="footer-sitemap">
-          <div className="footer-brand">
-            <a href="#home" className="nav-mark">{site.shortName}</a>
-            <p>{site.role}</p>
-          </div>
-          <div className="footer-links">
-            <span>Explore</span>
-            {site.nav.map((item) => (
-              <a key={item.href} href={item.href}>{item.label}</a>
-            ))}
-          </div>
-          <div className="footer-links">
-            <span>Elsewhere</span>
-            <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href={`mailto:${site.email}`}>{site.email}</a>
-          </div>
+        <div className="footer-divider">
+          <span />
+          <span className="footer-divider-symbol">✳</span>
+          <span />
         </div>
+
+        <nav className="footer-navigation" aria-label="Footer navigation">
+          <div className="footer-brand-column">
+            <a href="#home" className="footer-brand-logo">
+              {site.shortName}
+              <span>.</span>
+            </a>
+
+            <p>
+              Curiosity driven.
+              <br />
+              Technology focused.
+            </p>
+          </div>
+
+          <div className="footer-link-column">
+            <span className="footer-column-title">EXPLORE</span>
+
+            <div className="footer-link-list">
+              {site.nav.map((item) => (
+                <a key={item.href} href={item.href}>
+                  {item.label}
+                  <ArrowUpRight size={13} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="footer-link-column">
+            <span className="footer-column-title">CONNECT</span>
+
+            <div className="footer-link-list">
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="footer-social-text">in</span>
+                LinkedIn
+                <ArrowUpRight size={13} />
+              </a>
+
+              <a
+                href={site.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Code2 size={15} />
+                GitHub
+                <ArrowUpRight size={13} />
+              </a>
+
+              <a href={`mailto:${site.email}`}>
+                <Mail size={15} />
+                Email
+                <ArrowUpRight size={13} />
+              </a>
+            </div>
+          </div>
+
+          <a href="#home" className="footer-back-top">
+            <span>BACK TO TOP</span>
+
+            <div>
+              <ArrowUp size={21} />
+            </div>
+          </a>
+        </nav>
 
         <div className="footer-bottom">
-          <p>{site.name} · {year ?? ""}</p>
-          <p>Built with Next.js</p>
-          <a href="#home">Back to top ↑</a>
+          <p>
+            © {year ?? "2026"} {site.name}. All rights reserved.
+          </p>
+
+          <p className="footer-built">
+            DESIGNED WITH PURPOSE <span>✳</span> BUILT WITH NEXT.JS
+          </p>
+
+          <a href="#home">BACK TO BEGINNING ↑</a>
         </div>
       </div>
     </footer>

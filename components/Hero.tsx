@@ -177,6 +177,7 @@ export function Hero() {
       <LaptopIntro stage={introStage} />
 
       <section
+        id="home"
         className={`classroom-hero ${
           dark ? "dark-mode" : "light-mode"
         } ${introStage === "done" ? "hero-entered" : "hero-waiting"}`}

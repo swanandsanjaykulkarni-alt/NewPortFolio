@@ -4,7 +4,10 @@
   width: 100%;
   padding: 100px 0 85px;
   overflow: hidden;
-  background: #080d0b;
+  background:
+    radial-gradient(ellipse at 5% 50%, rgba(255, 128, 102, 0.07), transparent 35%),
+    radial-gradient(ellipse at 95% 50%, rgba(113, 224, 206, 0.07), transparent 35%),
+    #090b10;
 }
 
 .campuses-wrap {
@@ -17,32 +20,36 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 55px;
+  margin-bottom: 48px;
 }
 
 .campuses-eyebrow {
   display: block;
   margin-bottom: 14px;
-  color: #83c9a0;
+  color: #ff9b72;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 3px;
 }
 
 .campuses-heading h2 {
   max-width: 700px;
-  color: #f1f5f1;
-  font-size: clamp(32px, 4.5vw, 54px);
+  color: #f7f5f0;
+  font-size: clamp(34px, 4.5vw, 56px);
   line-height: 1.12;
   letter-spacing: -1.8px;
 }
 
 .campuses-count {
   flex-shrink: 0;
-  padding-bottom: 8px;
-  color: #a0aaa3;
-  font-size: 13px;
-  letter-spacing: 1.5px;
+  padding: 10px 15px;
+  border: 1px solid rgba(181, 243, 109, 0.3);
+  border-radius: 30px;
+  background: rgba(181, 243, 109, 0.08);
+  color: #c6f58c;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
   white-space: nowrap;
 }
 
@@ -50,23 +57,11 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 22px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 7%,
-    black 93%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 7%,
-    black 93%,
-    transparent
-  );
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
 }
 
 .campuses-track {
@@ -87,23 +82,40 @@
   width: 390px;
   min-height: 112px;
   padding: 20px 35px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background 0.3s ease;
+}
+
+.campus-item:hover {
+  background: rgba(255, 255, 255, 0.035);
 }
 
 .campus-mark {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 66px;
-  height: 66px;
-  border: 1px solid color-mix(in srgb, var(--campus-accent) 50%, transparent);
-  border-radius: 18px;
-  background: color-mix(in srgb, var(--campus-accent) 12%, #101713);
+  width: 68px;
+  height: 68px;
+  border: 1px solid color-mix(in srgb, var(--campus-accent) 70%, transparent);
+  border-radius: 21px 7px 21px 7px;
+  background: color-mix(in srgb, var(--campus-accent) 15%, #11141b);
   color: var(--campus-accent);
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.5px;
+  box-shadow: 0 0 25px color-mix(in srgb, var(--campus-accent) 13%, transparent);
+  transition:
+    border-radius 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.campus-item:hover .campus-mark {
+  border-radius: 50%;
+  transform: rotate(-7deg) scale(1.08);
+  box-shadow: 0 0 32px color-mix(in srgb, var(--campus-accent) 30%, transparent);
 }
 
 .campus-info {
@@ -112,30 +124,35 @@
 
 .campus-info h3 {
   margin: 0 0 8px;
-  color: #edf2ed;
+  color: #f3f1ed;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 650;
   line-height: 1.45;
+  transition: color 0.3s ease;
+}
+
+.campus-item:hover .campus-info h3 {
+  color: var(--campus-accent);
 }
 
 .campus-info span {
-  color: #91a097;
+  color: #a3a6b0;
   font-size: 14px;
+  letter-spacing: 0.4px;
 }
 
 .campuses-note {
   margin: 25px 0 0;
-  color: #829087;
+  color: #9b9eaa;
   font-size: 14px;
   text-align: center;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
 }
 
 @keyframes campus-marquee {
   from {
     transform: translateX(0);
   }
-
   to {
     transform: translateX(-50%);
   }
@@ -156,10 +173,6 @@
     font-size: clamp(30px, 7vw, 42px);
   }
 
-  .campuses-count {
-    font-size: 11px;
-  }
-
   .campus-item {
     width: 310px;
     min-height: 100px;
@@ -168,9 +181,9 @@
   }
 
   .campus-mark {
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
+    width: 56px;
+    height: 56px;
+    border-radius: 17px 6px 17px 6px;
     font-size: 13px;
   }
 
