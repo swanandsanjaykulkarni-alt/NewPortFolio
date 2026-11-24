@@ -1,12 +1,18 @@
+
 "use client";
 
+import { useState } from "react";
 import {
   Code2,
   GraduationCap,
   Presentation,
+  ChevronDown,
+  MapPin,
+  BriefcaseBusiness,
 } from "lucide-react";
 
 import { Reveal } from "@/components/Reveal";
+import "./Experience.css";
 
 const experiences = [
   {
@@ -129,45 +135,121 @@ const experiences = [
 ];
 
 export function Experience() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const toggleExperience = (index: number) => {
+    setActiveIndex((current) => (current === index ? null : index));
+  };
+
   return (
-    <section
-      id="experience"
-      className="experience-section"
-    >
+    <section id="experience" className="experience-section">
       <div className="section-wrap">
         <div className="experience-layout">
           <div className="experience-sticky">
             <span className="section-kicker">Experience</span>
-            <h2>Let&apos;s go back in time.</h2>
-            <span className="experience-year" aria-label="2026">2026</span>
+            <h2>Let's go back in time.</h2>
+            <span className="experience-year" aria-label="2026">
+              2026
+            </span>
             <p>Learning, teaching &amp; building.</p>
+
+            <div className="experience-side-note">
+              <span className="experience-side-line" />
+              <span>Explore my journey</span>
+            </div>
           </div>
 
           <div className="experience-list">
             {experiences.map((item, index) => {
               const Icon = item.icon;
+              const isOpen = activeIndex === index;
 
               return (
-                <Reveal key={`${item.organization}-${item.role}`} delay={index * 0.035}>
-                  <article className="experience-entry">
-                    <span className="experience-number">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <div className="experience-topline">
-                        <h3 className="experience-org">{item.organization}</h3>
-                        <span className="experience-type">
-                          <Icon aria-hidden="true" size={13} /> {item.type}
+                <Reveal
+                  key={`${item.organization}-${item.role}`}
+                  delay={index * 0.035}
+                >
+                  <article
+                    className={`experience-card experience-${item.color} ${
+                      isOpen ? "experience-card-open" : ""
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      className="experience-card-trigger"
+                      onClick={() => toggleExperience(index)}
+                      aria-expanded={isOpen}
+                      aria-controls={`experience-content-${index}`}
+                    >
+                      <span className="experience-card-number">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+
+                      <span className="experience-card-icon">
+                        <Icon size={23} strokeWidth={1.8} />
+                      </span>
+
+                      <span className="experience-card-heading">
+                        <span className="experience-card-company">
+                          {item.organization}
                         </span>
+                        <span className="experience-card-role">
+                          {item.role}
+                        </span>
+                      </span>
+
+                      <span className="experience-card-action">
+                        <ChevronDown
+                          size={20}
+                          className="experience-chevron"
+                        />
+                      </span>
+                    </button>
+
+                    <div
+                      id={`experience-content-${index}`}
+                      className="experience-expand"
+                      aria-hidden={!isOpen}
+                    >
+                      <div className="experience-expand-inner">
+                        <div className="experience-detail">
+                          <div className="experience-detail-top">
+                            <span className="experience-detail-label">
+                              ROLE OVERVIEW
+                            </span>
+                            <span className="experience-type">
+                              {item.type}
+                            </span>
+                          </div>
+
+                          <p className="experience-description">
+                            {item.description}
+                          </p>
+
+                          <div className="experience-location-detail">
+                            <MapPin size={15} />
+                            <span>{item.location}</span>
+                          </div>
+
+                          <div className="experience-contributions">
+                            <div className="experience-contributions-title">
+                              <BriefcaseBusiness size={16} />
+                              <span>Key Contributions</span>
+                            </div>
+
+                            <ul className="experience-highlights">
+                              {item.highlights.map((highlight, highlightIndex) => (
+                                <li key={highlight}>
+                                  <span className="experience-highlight-index">
+                                    {String(highlightIndex + 1).padStart(2, "0")}
+                                  </span>
+                                  <span>{highlight}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
                       </div>
-                      <p className="experience-role">{item.role}</p>
-                      <p className="experience-location">{item.location}</p>
-                      <p className="experience-description">{item.description}</p>
-                      <ul className="experience-highlights">
-                        {item.highlights.map((highlight) => (
-                          <li key={highlight}>{highlight}</li>
-                        ))}
-                      </ul>
                     </div>
                   </article>
                 </Reveal>

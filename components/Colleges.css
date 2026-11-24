@@ -1,0 +1,196 @@
+
+.campuses-section {
+  position: relative;
+  width: 100%;
+  padding: 100px 0 85px;
+  overflow: hidden;
+  background: #080d0b;
+}
+
+.campuses-wrap {
+  width: min(1200px, 90%);
+  margin: 0 auto;
+}
+
+.campuses-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 55px;
+}
+
+.campuses-eyebrow {
+  display: block;
+  margin-bottom: 14px;
+  color: #83c9a0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.campuses-heading h2 {
+  max-width: 700px;
+  color: #f1f5f1;
+  font-size: clamp(32px, 4.5vw, 54px);
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+}
+
+.campuses-count {
+  flex-shrink: 0;
+  padding-bottom: 8px;
+  color: #a0aaa3;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.campuses-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 22px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+}
+
+.campuses-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: campus-marquee 75s linear infinite;
+}
+
+.campuses-marquee:hover .campuses-track {
+  animation-play-state: paused;
+}
+
+.campus-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 390px;
+  min-height: 112px;
+  padding: 20px 35px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.campus-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 66px;
+  height: 66px;
+  border: 1px solid color-mix(in srgb, var(--campus-accent) 50%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--campus-accent) 12%, #101713);
+  color: var(--campus-accent);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.campus-info {
+  min-width: 0;
+}
+
+.campus-info h3 {
+  margin: 0 0 8px;
+  color: #edf2ed;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.campus-info span {
+  color: #91a097;
+  font-size: 14px;
+}
+
+.campuses-note {
+  margin: 25px 0 0;
+  color: #829087;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+@keyframes campus-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .campuses-section {
+    padding: 75px 0 65px;
+  }
+
+  .campuses-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 35px;
+  }
+
+  .campuses-heading h2 {
+    font-size: clamp(30px, 7vw, 42px);
+  }
+
+  .campuses-count {
+    font-size: 11px;
+  }
+
+  .campus-item {
+    width: 310px;
+    min-height: 100px;
+    gap: 15px;
+    padding: 16px 22px;
+  }
+
+  .campus-mark {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    font-size: 13px;
+  }
+
+  .campus-info h3 {
+    font-size: 15px;
+  }
+
+  .campus-info span {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campuses-track {
+    animation: none;
+  }
+
+  .campuses-marquee {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}

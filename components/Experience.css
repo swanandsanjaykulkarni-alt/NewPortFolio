@@ -1,0 +1,441 @@
+
+/* EXPERIENCE INTERACTIVE COMPANY CARDS */
+
+.experience-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 75px;
+  align-items: start;
+}
+
+.experience-sticky {
+  position: sticky;
+  top: 120px;
+}
+
+.experience-sticky h2 {
+  font-size: clamp(36px, 4vw, 58px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  margin-top: 22px;
+  max-width: 420px;
+}
+
+.experience-year {
+  display: block;
+  margin-top: 35px;
+  font-size: clamp(75px, 10vw, 125px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -8px;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
+}
+
+.experience-sticky > p {
+  margin-top: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.experience-side-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 55px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.experience-side-line {
+  height: 1px;
+  width: 38px;
+  background: #50e6b0;
+}
+
+/* CARD */
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.experience-card {
+  --card-accent: #55e5d0;
+  --card-glow: rgba(85, 229, 208, 0.14);
+
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--card-accent) 30%, transparent);
+  border-radius: 17px;
+  background:
+    radial-gradient(
+      circle at 95% 0%,
+      var(--card-glow),
+      transparent 45%
+    ),
+    linear-gradient(125deg, #151d23, #10151b 75%);
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+}
+
+.experience-cyan {
+  --card-accent: #53e5d2;
+  --card-glow: rgba(83, 229, 210, 0.15);
+}
+
+.experience-violet {
+  --card-accent: #bb91ff;
+  --card-glow: rgba(187, 145, 255, 0.16);
+}
+
+.experience-blue {
+  --card-accent: #71aaff;
+  --card-glow: rgba(113, 170, 255, 0.16);
+}
+
+.experience-pink {
+  --card-accent: #ff8dbb;
+  --card-glow: rgba(255, 141, 187, 0.15);
+}
+
+.experience-orange {
+  --card-accent: #ffb36c;
+  --card-glow: rgba(255, 179, 108, 0.16);
+}
+
+.experience-card:hover,
+.experience-card-open {
+  border-color: var(--card-accent);
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.22),
+    0 0 25px var(--card-glow);
+}
+
+/* CLICKABLE COMPANY HEADER */
+
+.experience-card-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 23px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.experience-card-trigger:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: -4px;
+  border-radius: 15px;
+}
+
+.experience-card-number {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--card-accent);
+  opacity: 0.8;
+  min-width: 22px;
+}
+
+.experience-card-icon {
+  width: 47px;
+  height: 47px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: var(--card-accent);
+  background: var(--card-glow);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 35%, transparent);
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease;
+}
+
+.experience-card:hover .experience-card-icon,
+.experience-card-open .experience-card-icon {
+  transform: scale(1.07);
+  background: color-mix(in srgb, var(--card-accent) 20%, transparent);
+}
+
+.experience-card-heading {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.experience-card-company {
+  color: #f4f5f7;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.experience-card-role {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.experience-card-action {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--card-accent);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 35%, transparent);
+  transition:
+    transform 0.4s ease,
+    background 0.3s ease;
+}
+
+.experience-chevron {
+  transition: transform 0.4s ease;
+}
+
+.experience-card-open .experience-chevron {
+  transform: rotate(180deg);
+}
+
+.experience-card-open .experience-card-action {
+  background: var(--card-glow);
+}
+
+/* EXPANDING CONTENT ANIMATION */
+
+.experience-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+
+.experience-card-open .experience-expand {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.experience-expand-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.experience-detail {
+  padding: 5px 28px 27px 87px;
+  transform: translateY(-18px);
+  opacity: 0;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease;
+  transition-delay: 0s;
+}
+
+.experience-card-open .experience-detail {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.12s;
+}
+
+.experience-detail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.experience-detail-label {
+  color: var(--card-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.experience-type {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 11px;
+  border-radius: 30px;
+  color: var(--card-accent);
+  background: var(--card-glow);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.experience-description {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.experience-location-detail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+}
+
+.experience-location-detail svg {
+  color: var(--card-accent);
+  flex-shrink: 0;
+}
+
+.experience-contributions {
+  margin-top: 24px;
+}
+
+.experience-contributions-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #f5f5f5;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.experience-contributions-title svg {
+  color: var(--card-accent);
+}
+
+.experience-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.experience-highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.experience-highlight-index {
+  flex-shrink: 0;
+  color: var(--card-accent);
+  font-size: 10px;
+  font-weight: 800;
+  padding-top: 3px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .experience-layout {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .experience-sticky {
+    position: relative;
+    top: auto;
+  }
+
+  .experience-sticky h2 {
+    max-width: 600px;
+  }
+
+  .experience-year {
+    font-size: 85px;
+    margin-top: 20px;
+  }
+
+  .experience-side-note {
+    margin-top: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .experience-list {
+    gap: 12px;
+  }
+
+  .experience-card {
+    border-radius: 14px;
+  }
+
+  .experience-card-trigger {
+    padding: 17px 13px;
+    gap: 11px;
+  }
+
+  .experience-card-number {
+    min-width: 18px;
+    font-size: 10px;
+  }
+
+  .experience-card-icon {
+    width: 39px;
+    height: 39px;
+    border-radius: 11px;
+  }
+
+  .experience-card-company {
+    font-size: 15px;
+  }
+
+  .experience-card-role {
+    font-size: 11px;
+  }
+
+  .experience-card-action {
+    width: 29px;
+    height: 29px;
+  }
+
+  .experience-detail {
+    padding: 5px 17px 22px;
+  }
+
+  .experience-detail-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .experience-description {
+    font-size: 13px;
+  }
+
+  .experience-highlights li {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience-card,
+  .experience-expand,
+  .experience-detail,
+  .experience-card-icon,
+  .experience-chevron,
+  .experience-card-action {
+    transition: none !important;
+  }
+}
